@@ -46,19 +46,19 @@ Numeric validity, identity, time interpretation, state trust, coverage, freshnes
 
 ## 3. Research register và bằng chứng giữ lại
 
-Tài liệu này gom kết luận của các reports trước; raw responses/captures, scripts, manifests, profiles, native fixtures và outputs vẫn ở [research/](research/). Không coi ngày viết bản tổng hợp là freshness mới của dữ liệu.
+Tài liệu này gom kết luận của các reports trước; raw responses/captures, manifests, profiles, native fixtures, outputs và các bản chụp tài liệu nguồn đi kèm có tại [data/research/](../data/research/); scripts ở [docs/research/scripts/](research/scripts/). Các gói bằng chứng được sao chép nguyên vẹn, không sửa nội dung. Đường dẫn cũ ghi bên trong manifests/profiles là provenance tại thời điểm khảo sát; khi tra dữ liệu ở vị trí mới, ánh xạ prefix `docs/research/` sang `data/research/` (không áp dụng cho scripts). Không coi ngày viết bản tổng hợp là freshness mới của dữ liệu.
 
 | Vòng | Thời điểm / phạm vi | Stated — kết quả chính | Evidence local |
 |---|---|---|---|
 | R01 | 2026-10-13, khoảng 15:08:45–15:10:15 UTC; keyword/detail discovery | Keywords trả ngoài scope; open events chứa closed markets; event khác market grain | **Không lưu raw vòng 1.** Bốn candidates được đọc lại ở R02; không giả chúng là snapshot R01. |
-| R02 | 2026-10-13, 15:23:28–15:25:50 UTC; Gamma tag/search/detail | 20 HTTP successes; tag pages có 387 distinct markets, 276 qua preliminary state gate; 9 candidates/18 outcomes | [Raw + manifest](research/gamma-metadata/2026-10-13-round-2-mbzjqacc/), [profile](research/gamma-metadata/round-2-profile.json), [candidates](research/gamma-metadata/round-2-candidates.csv) |
-| R03 | 2026-10-13, 15:43:25–15:44:47 UTC; Gamma preflight/CLOB REST | 33 HTTP 200; 18/18 IDs/books khớp, two-sided/non-crossed; 814/814 levels qua numeric checks; 6/6 midpoint/spread comparisons khớp | [Raw + manifest](research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/), [checks](research/clob-feasibility/round-3-outcome-checks.csv), [profile](research/clob-feasibility/round-3-profile.json) |
-| R04 | 2026-10-14, 01:43:18.535–01:45:40.553 UTC; 2 sessions × 65s, 4 outcomes | Initial books, 12 PONG; 141 price_change events nhưng top không đổi; controlled gap 11.335s; preflight thấy 5408226 đã đóng | [Stopped preflight](research/websocket-feasibility/2026-10-14-round-4-6xk09lcn/), [capture + manifest](research/websocket-feasibility/2026-10-14-round-4-npl164xz/), [profile](research/websocket-feasibility/round-4-profile.json) |
-| R05 | 2026-10-14, 01:59:40.171–02:04:42.854 UTC; một session 300s, 6 outcomes | 82 BBA/positive outcome transitions; 29 PONG; SDK hỗ trợ epoch-ms; related BBA trước matching delta trong mẫu | [Raw capture](research/stream-semantics/2026-10-14-round-5-hn6sp9mn/), [pinned refs](research/stream-semantics/2026-10-14-reference-rvkkb7em/), [profile](research/stream-semantics/round-5-profile.json), [quote trace](research/stream-semantics/round-5-quote-trace.csv) |
-| R06 | 2026-10-14; PMXT upstream attempts, mirror listing/HEAD/ranges/footer | Recent temporal mismatch; checksum entry có thể HEAD 404; actual Range/footer khả thi, **chưa decode data rows** | [Evidence + ledger](research/historical-feasibility/2026-10-14-round-6-zejno6um/) |
-| R07 | 2026-10-14; V3 recent-hour metadata và một projected BBA group | 150 checksum entries + 18 missing-list objects HEAD 200; 60 HLE joint-ID rows bằng research decoder | [Evidence + profiles](research/v3-feasibility/2026-10-14-round-7-nsfgb97g/) |
-| R08 | 2026-10-14; DuckDB independent check và 3 fixed sample hours | 60-row sample khớp exact/zero field mismatches; BBA matches theo sampled hours là 0/8/60 | [Evidence + engine outputs](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/) |
-| R09 | 2026-10-14; HLE 3072353, 2026-10-07T00 UTC | 0 matching book rows nhưng 446 price_change rows có valid top quotes; chưa đủ interval trust | [Evidence + baseline profile](research/v3-baseline/2026-10-14-round-9-66628vd0/) |
+| R02 | 2026-10-13, 15:23:28–15:25:50 UTC; Gamma tag/search/detail | 20 HTTP successes; tag pages có 387 distinct markets, 276 qua preliminary state gate; 9 candidates/18 outcomes | [Raw + manifest](../data/research/gamma-metadata/2026-10-13-round-2-mbzjqacc/), [profile](../data/research/gamma-metadata/round-2-profile.json), [candidates](../data/research/gamma-metadata/round-2-candidates.csv) |
+| R03 | 2026-10-13, 15:43:25–15:44:47 UTC; Gamma preflight/CLOB REST | 33 HTTP 200; 18/18 IDs/books khớp, two-sided/non-crossed; 814/814 levels qua numeric checks; 6/6 midpoint/spread comparisons khớp | [Raw + manifest](../data/research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/), [checks](../data/research/clob-feasibility/round-3-outcome-checks.csv), [profile](../data/research/clob-feasibility/round-3-profile.json) |
+| R04 | 2026-10-14, 01:43:18.535–01:45:40.553 UTC; 2 sessions × 65s, 4 outcomes | Initial books, 12 PONG; 141 price_change events nhưng top không đổi; controlled gap 11.335s; preflight thấy 5408226 đã đóng | [Stopped preflight](../data/research/websocket-feasibility/2026-10-14-round-4-6xk09lcn/), [capture + manifest](../data/research/websocket-feasibility/2026-10-14-round-4-npl164xz/), [profile](../data/research/websocket-feasibility/round-4-profile.json) |
+| R05 | 2026-10-14, 01:59:40.171–02:04:42.854 UTC; một session 300s, 6 outcomes | 82 BBA/positive outcome transitions; 29 PONG; SDK hỗ trợ epoch-ms; related BBA trước matching delta trong mẫu | [Raw capture](../data/research/stream-semantics/2026-10-14-round-5-hn6sp9mn/), [pinned refs](../data/research/stream-semantics/2026-10-14-reference-rvkkb7em/), [profile](../data/research/stream-semantics/round-5-profile.json), [quote trace](../data/research/stream-semantics/round-5-quote-trace.csv) |
+| R06 | 2026-10-14; PMXT upstream attempts, mirror listing/HEAD/ranges/footer | Recent temporal mismatch; checksum entry có thể HEAD 404; actual Range/footer khả thi, **chưa decode data rows** | [Evidence + ledger](../data/research/historical-feasibility/2026-10-14-round-6-zejno6um/) |
+| R07 | 2026-10-14; V3 recent-hour metadata và một projected BBA group | 150 checksum entries + 18 missing-list objects HEAD 200; 60 HLE joint-ID rows bằng research decoder | [Evidence + profiles](../data/research/v3-feasibility/2026-10-14-round-7-nsfgb97g/) |
+| R08 | 2026-10-14; DuckDB independent check và 3 fixed sample hours | 60-row sample khớp exact/zero field mismatches; BBA matches theo sampled hours là 0/8/60 | [Evidence + engine outputs](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/) |
+| R09 | 2026-10-14; HLE 3072353, 2026-10-07T00 UTC | 0 matching book rows nhưng 446 price_change rows có valid top quotes; chưa đủ interval trust | [Evidence + baseline profile](../data/research/v3-baseline/2026-10-14-round-9-66628vd0/) |
 
 ### Đo bytes trong các probes
 
@@ -93,7 +93,7 @@ Các scopes trên khác nhau, **không cộng thành một daily meter hoàn ch�
 
 ### 4.2 Data example — selected fields từ response thật
 
-[Raw market 3072353](research/gamma-metadata/2026-10-13-round-2-mbzjqacc/market-3072353.json), [manifest](research/gamma-metadata/2026-10-13-round-2-mbzjqacc/manifest.json): GET lúc `2026-10-13T15:25:41.199783+00:00`, completion `15:25:41.677257+00:00`, HTTP 200.
+[Raw market 3072353](../data/research/gamma-metadata/2026-10-13-round-2-mbzjqacc/market-3072353.json), [manifest](../data/research/gamma-metadata/2026-10-13-round-2-mbzjqacc/manifest.json): GET lúc `2026-10-13T15:25:41.199783+00:00`, completion `15:25:41.677257+00:00`, HTTP 200.
 
 ```json
 {
@@ -128,7 +128,7 @@ Các scopes trên khác nhau, **không cộng thành một daily meter hoàn ch�
 | 1124074 | 5230698 | Dots free access | Paid-plan free trial/promotion không đủ |
 | 1121379 | 5219371 | Gemini Argon HLE debut Accuracy ≥55% | Check time sau lần đầu xuất hiện đủ điều kiện; khác release/highest-in-year market |
 
-Chín candidates có 18 outcomes ở R02. Không lấp đủ 20, không áp event quota chưa được duyệt. [Candidate CSV](research/gamma-metadata/round-2-candidates.csv) giữ IDs/provenance và lịch sử trạng thái; không sửa thành cấu hình live.
+Chín candidates có 18 outcomes ở R02. Không lấp đủ 20, không áp event quota chưa được duyệt. [Candidate CSV](../data/research/gamma-metadata/round-2-candidates.csv) giữ IDs/provenance và lịch sử trạng thái; không sửa thành cấu hình live.
 
 Các review exclusions đáng lưu: `1345229` IPO, `5457258` TSM earnings, `5347188` data-center moratorium chung ngoài scope AI trực tiếp; `5420046` domain/branding chưa chứng minh phù hợp; `4412200` trigger công bố của OpenAI không bắt buộc AI tự giải; `5635905` disclosure time khác incident time; `3072351` đã đóng và `5598611` không qua state gate. Không diễn giải các rules này thành sự kiện bên ngoài đã được xác minh.
 
@@ -140,7 +140,7 @@ Các review exclusions đáng lưu: `1345229` IPO, `5457258` TSM earnings, `5347
 
 **Documentation conflict:** captured OpenAPI mô tả bids descending/asks ascending; guide, payloads và SDK đã đọc mô tả bids ascending/asks descending. Không dựa implicit first/last element để tìm best quote.
 
-[Raw HLE Yes book](research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/book-3072353-0.json), [manifest](research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/manifest.json): request `2026-10-13T15:43:34.961052+00:00`, completion `15:43:35.475470+00:00`, HTTP 200.
+[Raw HLE Yes book](../data/research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/book-3072353-0.json), [manifest](../data/research/clob-feasibility/2026-10-13-round-3-dcp3q7ys/manifest.json): request `2026-10-13T15:43:34.961052+00:00`, completion `15:43:35.475470+00:00`, HTTP 200.
 
 Selected source fields:
 
@@ -175,7 +175,7 @@ R05 có 6 book baselines, 1,126 price_change rows, 82 BBA, 112 size-zero rows v�
 
 ### 5.3 Data example — một transition, hai biểu diễn
 
-[Raw R05 messages](research/stream-semantics/2026-10-14-round-5-hn6sp9mn/session-1-messages.jsonl), [evidence manifest](research/stream-semantics/2026-10-14-round-5-hn6sp9mn/evidence-manifest.json), [derived observations](research/stream-semantics/round-5-event-observations.csv). Ví dụ HLE 3072353 **Yes**, cùng mapping ở mục 4.2:
+[Raw R05 messages](../data/research/stream-semantics/2026-10-14-round-5-hn6sp9mn/session-1-messages.jsonl), [evidence manifest](../data/research/stream-semantics/2026-10-14-round-5-hn6sp9mn/evidence-manifest.json), [derived observations](../data/research/stream-semantics/round-5-event-observations.csv). Ví dụ HLE 3072353 **Yes**, cùng mapping ở mục 4.2:
 
 | Message | Observed UTC ngày 2026-10-14 | Source timestamp raw | Event | Bid / Ask | Derived mid |
 |---|---|---|---|---|---:|
@@ -201,11 +201,11 @@ Selected item thật trong `price_changes` của message 6:
 
 ### 5.4 Semantics đã được hỗ trợ và phần chưa có guarantee
 
-[Official SDK/guide snapshots](research/stream-semantics/2026-10-14-reference-rvkkb7em/): ts-sdk commit `efbc09bd7c0e652ce2c2e3632b9c8dc51505d864`; agent-skills commit `91ee44ae113e958affd20cd505c6e9d9d6100e0b`.
+[Official SDK/guide snapshots](../data/research/stream-semantics/2026-10-14-reference-rvkkb7em/): ts-sdk commit `efbc09bd7c0e652ce2c2e3632b9c8dc51505d864`; agent-skills commit `91ee44ae113e958affd20cd505c6e9d9d6100e0b`.
 
 - **Stated — SDK:** REST/book/price_change/BBA timestamps dùng epoch-ms schema. Empty-string optional best_bid/best_ask normalize thành null, không price zero. Timestamp có thể optional/null trong event schemas.
 - **Open:** server ghi time tại generation/update/broadcast, clock sync, reliability/completeness hoặc source-event latency. Unit evidence không giải hết các câu hỏi này; giữ labels Hypothesis của R03/R04 cũ.
-- **Hypothesis — depth replay experiment:** size>0 như absolute replacement, gom consecutive same-asset timestamp/hash rows. Per-message replay có 2 temporary mismatches; grouped replay 1,066/1,066 top comparisons khớp, 54 groups qua nhiều messages. [Initial profile](research/stream-semantics/round-5-depth-replay-profile.json) và [grouped profile](research/stream-semantics/round-5-grouped-depth-profile.json) đều giữ lại.
+- **Hypothesis — depth replay experiment:** size>0 như absolute replacement, gom consecutive same-asset timestamp/hash rows. Per-message replay có 2 temporary mismatches; grouped replay 1,066/1,066 top comparisons khớp, 54 groups qua nhiều messages. [Initial profile](../data/research/stream-semantics/round-5-depth-replay-profile.json) và [grouped profile](../data/research/stream-semantics/round-5-grouped-depth-profile.json) đều giữ lại.
 - **Open:** timestamp/hash không là validated unique event ID, transaction/completion boundary hoặc watermark; khác depth updates có thể dùng cùng các giá trị. Top matches không chứng minh positive-size/full-depth semantics. Không gọi supplied top quote là full-depth reconstruction.
 - No source regressions/exact duplicates trong mẫu không là always-ordered/exactly-once guarantee. Session 300s không chứng minh đúng event-time anchors 5m hoặc mục tiêu publish trong một phút.
 
@@ -221,7 +221,7 @@ Selected item thật trong `price_changes` của message 6:
 
 Object kiểm tra: `pmxt/v2/polymarket_orderbook_2026-08-09T23.parquet`; HEAD Content-Length=507,501,824 bytes. Prefix/tail/footer ranges trả 206; không full GET hoặc decode data pages.
 
-[Footer profile](research/historical-feasibility/2026-10-14-round-6-zejno6um/parquet-footer-profile.json), [footer binary](research/historical-feasibility/2026-10-14-round-6-zejno6um/parquet-footer.bin), [ledger](research/historical-feasibility/2026-10-14-round-6-zejno6um/transfer-ledger.json). Selected **decoded metadata/profile fields**, không source event payload:
+[Footer profile](../data/research/historical-feasibility/2026-10-14-round-6-zejno6um/parquet-footer-profile.json), [footer binary](../data/research/historical-feasibility/2026-10-14-round-6-zejno6um/parquet-footer.bin), [ledger](../data/research/historical-feasibility/2026-10-14-round-6-zejno6um/transfer-ledger.json). Selected **decoded metadata/profile fields**, không source event payload:
 
 ```json
 {
@@ -271,7 +271,7 @@ Theo publisher, physical layout/sequence là capture/merge/collector-local, khô
 
 #### Data example — row được native engine kiểm độc lập
 
-[Native matched CSV, dòng dữ liệu đầu](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/duckdb-matched-quotes.csv), [provenance](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/derived-fixture-provenance.json), [engine profile](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/duckdb-validation-profile.json). Source hour 2026-10-13T23, BBA group 7:
+[Native matched CSV, dòng dữ liệu đầu](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/duckdb-matched-quotes.csv), [provenance](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/derived-fixture-provenance.json), [engine profile](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/compact-fixture/duckdb-validation-profile.json). Source hour 2026-10-13T23, BBA group 7:
 
 | Exported field | Exact value | Loại thông tin |
 |---|---|---|
@@ -289,9 +289,9 @@ Theo publisher, physical layout/sequence là capture/merge/collector-local, khô
 
 **Stated — R08 independent check:** DuckDB 1.4.3 đọc unchanged compressed pages qua compact projected fixture, không custom-decode/re-encode cells. Fixture 2,520,232 bytes; 60 matches khớp exact IDs, row positions, timestamps, sequence và decimals, zero mismatches. Đây là native sample decoding, không full original-hour SHA, capture completeness hoặc production remote-reader benchmark. Tool tạm được phép, không production-engine approval.
 
-Fixed-hour experiment cho HLE có BBA matches: 2026-10-07T00=0; 2026-10-10T12=8; 2026-10-13T23=60. Không biến ba sampled hours thành continuous bảy ngày. Projection ban đầu dự kiến 8,101,460 bytes vượt 8 MB nên dừng trước column requests; bỏ source spread của hai mẫu mới, giữ market/hours/cap và derive spread để đạt 7,789,138 bytes. [Stopped attempt](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/fixed-hour-capture-profile.json), [continuation](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/projection-continuation-profile.json) đều được giữ. Không claim validate omitted spread field.
+Fixed-hour experiment cho HLE có BBA matches: 2026-10-07T00=0; 2026-10-10T12=8; 2026-10-13T23=60. Không biến ba sampled hours thành continuous bảy ngày. Projection ban đầu dự kiến 8,101,460 bytes vượt 8 MB nên dừng trước column requests; bỏ source spread của hai mẫu mới, giữ market/hours/cap và derive spread để đạt 7,789,138 bytes. [Stopped attempt](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/fixed-hour-capture-profile.json), [continuation](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/projection-continuation-profile.json) đều được giữ. Không claim validate omitted spread field.
 
-Sparse-fixture local attempt cũng bị allocation guard chặn trước decode; [failed profile](research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/duckdb-validation-profile.json) khác native pass trong compact-fixture. Local fixture issue không phải source failure.
+Sparse-fixture local attempt cũng bị allocation guard chặn trước decode; [failed profile](../data/research/v3-independent-validation/2026-10-14-round-8-lh7ohvto/duckdb-validation-profile.json) khác native pass trong compact-fixture. Local fixture issue không phải source failure.
 
 #### Data example bổ sung — zero BBA nhưng vẫn có quote observations
 
@@ -302,17 +302,17 @@ Sparse-fixture local attempt cũng bị allocation guard chặn trước decode;
 | Yes | 223 | 0.4600 / 0.4900 | 0.4750 / 0.0300 |
 | No | 223 | 0.5100 / 0.5400 | 0.5250 / 0.0300 |
 
-[Native quote CSV](research/v3-baseline/2026-10-14-round-9-66628vd0/price_change/engine/duckdb-matched-quotes.csv), [profile](research/v3-baseline/2026-10-14-round-9-66628vd0/price_change/engine/duckdb-validation-profile.json). First row là No, received_us=`1791331237527587`, source_ms=`1791331237523`, sequence=`562958568709267`, bid/ask=0.5100/0.5400.
+[Native quote CSV](../data/research/v3-baseline/2026-10-14-round-9-66628vd0/price_change/engine/duckdb-matched-quotes.csv), [profile](../data/research/v3-baseline/2026-10-14-round-9-66628vd0/price_change/engine/duckdb-validation-profile.json). First row là No, received_us=`1791331237527587`, source_ms=`1791331237523`, sequence=`562958568709267`, bid/ask=0.5100/0.5400.
 
 Source observation đầu **00:00:37.523Z**, cuối **00:59:40.229Z**, max consecutive source-time separation **446.873s**. Không backfill first quote vào midnight; silence không tự là outage, complete capture hoặc certified zero changes. Không tải price/size/side/source spread/depth ở lượt này: spread là derived, không full delta replay. No được quan sát riêng, không suy từ 1−Yes.
 
-Publisher `FULL` labels cùng tồn tại với exceptions/boundary drops: book exception_markets=27,551/boundary_dropped=2; price_change=46/348. [Claims excerpt](research/v3-baseline/2026-10-14-round-9-66628vd0/publisher-quality-claims.json). Relevance đến target chưa audit; label không chứng minh continuous state cho market.
+Publisher `FULL` labels cùng tồn tại với exceptions/boundary drops: book exception_markets=27,551/boundary_dropped=2; price_change=46/348. [Claims excerpt](../data/research/v3-baseline/2026-10-14-round-9-66628vd0/publisher-quality-claims.json). Relevance đến target chưa audit; label không chứng minh continuous state cho market.
 
 **Hypothesis — từ một V3 footer:** BBA projection chín predicates khoảng 20,194,735 bytes/giờ cộng footer; giả định 168 giờ giống nhau khoảng 3.66 GB. Không là actual week transfer, daily requirement hoặc chứng minh ngân sách đủ. Chunks chứa nhiều markets nên ít output rows không đồng nghĩa ít bytes; reader coalescing/cache/retries/amplification chưa được benchmark.
 
 ### 6.3 Polymarket price-history và nguồn khác chưa chọn
 
-[Documentation snapshot Prices and Order Books](research/clob-feasibility/2026-10-13-reference-0vhinrst/prices-order-books.md) là reference đã lưu, **không executed price-history response**. Chưa có response sample được thực thi/lưu trong các historical probes này; không dựng JSON giả hoặc gọi V3 rows là price-history output.
+[Documentation snapshot Prices and Order Books](../data/research/clob-feasibility/2026-10-13-reference-0vhinrst/prices-order-books.md) là reference đã lưu, **không executed price-history response**. Chưa có response sample được thực thi/lưu trong các historical probes này; không dựng JSON giả hoặc gọi V3 rows là price-history output.
 
 **Open:** price definition, IDs/time coverage và compatibility với midpoint/spread/count. AG6 được phát hiện nhưng span cũ, license chưa rõ theo mirror; chưa đánh giá/chọn. Không dùng các alternatives này làm fallback tự động.
 
@@ -328,7 +328,7 @@ Publisher `FULL` labels cùng tồn tại với exceptions/boundary drops: book 
 
 ### Ownership, rights và provenance
 
-**Stated — publisher notices đã đọc ở R06:** mirror LICENSE nói PMXT prefix là unmodified PMXT mirror, CC BY 4.0 với credit PMXT; V3 là Pendulum capture/merge, CC BY 4.0 với credit Pendulum và as-is/no warranty. Đây là nội dung notice, **không legal determination về ownership/upstream quyền phân phối**. Xem [retained R06 evidence/ledger](research/historical-feasibility/2026-10-14-round-6-zejno6um/).
+**Stated — publisher notices đã đọc ở R06:** mirror LICENSE nói PMXT prefix là unmodified PMXT mirror, CC BY 4.0 với credit PMXT; V3 là Pendulum capture/merge, CC BY 4.0 với credit Pendulum và as-is/no warranty. Đây là nội dung notice, **không legal determination về ownership/upstream quyền phân phối**. Xem [retained R06 evidence/ledger](../data/research/historical-feasibility/2026-10-14-round-6-zejno6um/).
 
 **Open:** independently verified upstream licensing, Polymarket API usage terms và public redistribution/portfolio sharing approval. Public access không là unrestricted reuse. Việc ghi examples local trong tài liệu này không cho phép publish raw samples ra ngoài.
 
@@ -428,7 +428,7 @@ Dimensions/reason codes của draft chỉ minh họa: identity, numeric validity
 
 - Business scope/KPI/quality: [01-business-problem.md](01-business-problem.md), giữ nguyên authority.
 - Research R02–R09: links raw/profile/ledger/manifest/native outputs theo từng mục ở trên; [research/scripts/](research/scripts/) giữ các probe/analyzer/decoder tools và attempts.
-- Official documentation snapshots: [CLOB references](research/clob-feasibility/2026-10-13-reference-0vhinrst/), [WebSocket realtime guide](research/websocket-feasibility/2026-10-14-round-4-npl164xz/official-realtime-data.md), [pinned SDK/guide](research/stream-semantics/2026-10-14-reference-rvkkb7em/).
+- Official documentation snapshots: [CLOB references](../data/research/clob-feasibility/2026-10-13-reference-0vhinrst/), [WebSocket realtime guide](../data/research/websocket-feasibility/2026-10-14-round-4-npl164xz/official-realtime-data.md), [pinned SDK/guide](../data/research/stream-semantics/2026-10-14-reference-rvkkb7em/).
 - Mirror/archive references đã thực sự khảo sát: [PMXT overview — inaccessible trong attempts](https://archive.pmxt.dev/docs/v2-data-overview), [Pendulum formats v2](https://archive.pendulumflow.com/formats/v2), [formats v3](https://archive.pendulumflow.com/formats/v3), [publisher license](https://archive.pendulumflow.com/LICENSE.txt). Những links này chỉ dẫn tới nguồn đã đọc/đã thử, không claim current access được kiểm lại khi tổng hợp.
 
 Nội dung đã được tổng hợp từ các top-level reports `metadata-source-evaluation.md`, `live-source-feasibility.md`, `websocket-source-feasibility.md`, `stream-semantics-validation.md`, `historical-source-evaluation.md`, `v3-historical-source-evaluation.md`, `v3-independent-validation.md`, `v3-historical-baseline.md`, `source-assessment.md` và `data-publication-requirements-draft.md`. Đã xóa đúng 10 reports/draft sau khi user xác nhận; tên trên chỉ là consolidation provenance, không links tới files còn tồn tại.

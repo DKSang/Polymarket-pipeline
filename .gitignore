@@ -1,1 +1,4 @@
 docs/research
+.env
+*.local.json
+data/research/
