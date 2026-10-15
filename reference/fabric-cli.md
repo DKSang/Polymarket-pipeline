@@ -1,8 +1,10 @@
 # Fabric CLI notes
 
-- Installed version observed during setup: 1.7.0.
-- Agreed authentication method: existing service principal.
-- Successful fab authentication is not yet verified.
+- Verified Fabric CLI version: 1.7.0.
+- Verified sign-in method: service principal authentication through fab auth login.
+- Logged-in status and identity match with Azure CLI verified; identity IDs are
+  recorded in environment.md.
+- Read-only Fabric API listing, workspace existence and workspace ID checks passed.
 - Docs: https://aka.ms/fabric-cli
 - Check fab <command> --help before first use in a session.
 - Follow AGENTS.md guardrails; examples are not execution approval.
@@ -50,5 +52,20 @@ Never use fab rm --hard.
 - Package help and server start help both exited successfully.
 - Server help confirms `--mode all` and `--read-only`; the latter is
   documented as disallowing write operations.
-- Server connection, effective tool filtering and Azure CLI credential
-  selection have not yet been verified.
+- CLI docs list-item-types succeeded, including lakehouse and notebook.
+- CLI onelake list-workspaces succeeded with
+  `AZURE_TOKEN_CREDENTIALS=AzureCliCredential`, returning Polymarket-DEV
+  with the same workspace object ID as Fabric CLI.
+- Azure CLI obtained Fabric credentials successfully; only expiry was displayed.
+- MCP protocol verification passed on 2026-10-15: Microsoft Learn search returned
+  official documentation; Fabric MCP docs listed lakehouse and notebook; live
+  OneLake workspace listing returned the agreed workspace object ID.
+- The exposed fabric-mcp tool list contained no create, upload or delete tools;
+  project configuration retains --read-only and AzureCliCredential.
+- A separate claude mcp list invocation still reported Pending approval for the
+  project servers, despite successful calls in this VS Code session. That CLI
+  launch needs its own approval; the current session's MCP calls are verified.
+- Optional remote MCP checks: FabricIQ discovery succeeded with an empty result;
+  SQL endpoint connected, but no target-item query was tested; hosted Power BI
+  modeling failed with HTTP 403 FeatureNotAvailable. Its cause is unverified;
+  do not change credentials, tenant settings or registrations without approval.

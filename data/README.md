@@ -10,4 +10,4 @@ Probe and analysis scripts remain in `../docs/research/scripts/`. Existing
 resolve them under `data/research/` now, except for scripts.
 
 Research bundles remain Git-ignored, matching their previous local-only status.
-Copying evidence does not authorize collection, redistribution or cloud uploads.
+Moving evidence does not authorize collection, redistribution or cloud uploads.

@@ -46,7 +46,7 @@ Numeric validity, identity, time interpretation, state trust, coverage, freshnes
 
 ## 3. Research register và bằng chứng giữ lại
 
-Tài liệu này gom kết luận của các reports trước; raw responses/captures, manifests, profiles, native fixtures, outputs và các bản chụp tài liệu nguồn đi kèm có tại [data/research/](../data/research/); scripts ở [docs/research/scripts/](research/scripts/). Các gói bằng chứng được sao chép nguyên vẹn, không sửa nội dung. Đường dẫn cũ ghi bên trong manifests/profiles là provenance tại thời điểm khảo sát; khi tra dữ liệu ở vị trí mới, ánh xạ prefix `docs/research/` sang `data/research/` (không áp dụng cho scripts). Không coi ngày viết bản tổng hợp là freshness mới của dữ liệu.
+Tài liệu này gom kết luận của các reports trước; raw responses/captures, manifests, profiles, native fixtures, outputs và các bản chụp tài liệu nguồn đi kèm có tại [data/research/](../data/research/); scripts ở [docs/research/scripts/](research/scripts/). Các gói bằng chứng đã được chuyển nguyên vẹn sang vị trí mới, không sửa nội dung; bản cũ trong docs/research/ đã được xóa sau khi kiểm tra SHA-256 khớp toàn bộ 228 file. Đường dẫn cũ ghi bên trong manifests/profiles là provenance tại thời điểm khảo sát; khi tra dữ liệu ở vị trí mới, ánh xạ prefix `docs/research/` sang `data/research/` (không áp dụng cho scripts). Không coi ngày viết bản tổng hợp là freshness mới của dữ liệu.
 
 | Vòng | Thời điểm / phạm vi | Stated — kết quả chính | Evidence local |
 |---|---|---|---|
