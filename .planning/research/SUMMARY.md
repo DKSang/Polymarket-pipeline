@@ -75,7 +75,7 @@ Order/grouping will be adjusted after requirements and the GSD structure-mode ch
 
 - Resolved after research: raw metadata covers all open markets in the AI-tag candidate set; selection of up to 30 watched AI markets belongs to downstream transformation. Verify the exact source tag mapping during implementation; design the selection method in transform planning.
 - Automatic AI-direct eligibility policy and ambiguous candidates.
-- Meaning of market stopped trading; transient source failures must not silently cause replacement.
+- Resolved after research: daily batch updates member status; keep the daily subscription selection through intra-day closures, without periodic status checks or immediate replacement. Lack of quotes alone does not establish closure. Closed-asset subscription/error behavior still needs testing.
 - Volume field, null/tie handling and daily cutoff/review semantics under manual operation.
 - Distinction between quiet quotes, unhealthy connection, delayed processing and ended sessions.
 - Required raw retention/evidence preservation and the precise long-session acceptance protocol.

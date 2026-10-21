@@ -24,6 +24,7 @@ This is a portfolio product with hypothetical researcher/analyst personas. No cu
 ### Confirmed After Research
 
 - Ingest raw metadata for all open markets in the AI-tag candidate set. Select up to 30 watched AI markets during downstream transformation; the raw ingest is not capped at 30. Exact selection implementation is deferred to transform planning.
+- Refresh status/membership in the daily batch on the first manual start per Asia/Saigon day. Keep that day's selected WebSocket subscriptions even if a member closes; do not introduce intra-day status polling, pre-session revalidation or immediate replacement. No new quote messages from that member is acceptable, subject to honest observation timestamps and handling actual subscription errors.
 
 ### Candidate Additions Requiring Confirmation
 
