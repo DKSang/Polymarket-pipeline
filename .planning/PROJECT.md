@@ -21,7 +21,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - [ ] Trả lời câu hỏi **Sôi động hay không**: tần suất giao dịch, khối lượng và spread theo thời gian, phân biệt market đang được giao dịch thật với market chỉ có quote.
 - [ ] Trả lời câu hỏi **Cú sốc giá**: phát hiện midpoint tăng hoặc giảm ít nhất 5 điểm phần trăm trong 5 phút, cho phép chỉnh ngưỡng/cửa sổ bằng cấu hình; cho xem spread/giao dịch quan sát được quanh sự kiện. Chỉ tính khi có dữ liệu hợp lệ và đủ lịch sử.
 - [ ] Xác định tập market AI (về các model) cần theo dõi và cách cập nhật tập này; tiêu chí chọn cần chốt ở research/requirements.
-- [ ] Ingest batch metadata Polymarket có tag AI vào Lakehouse lúc 07:00 hằng ngày, múi giờ Asia/Saigon (UTC+7); lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
+- [ ] Ingest batch metadata Polymarket có tag AI vào Lakehouse lúc 07:15 hằng ngày, múi giờ Asia/Saigon (UTC+7), xong trước 08:15 giờ tuyệt đối; lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
 - [ ] Nếu batch metadata thất bại, dùng phiên bản thành công gần nhất, cảnh báo rõ thời điểm cập nhật và kiểm tra lại market trước khi đăng ký WebSocket.
 - [ ] Dùng Eventhouse/KQL cho phân tích live và báo cáo lịch sử theo phiên/ngày; Lakehouse là nơi lưu metadata discovery bắt buộc.
 - [ ] Dashboard live và báo cáo lịch sử theo ngày dựng từ dữ liệu đã thu trong các phiên.
@@ -52,7 +52,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 
 - **Platform**: Microsoft Fabric bắt buộc — mục tiêu portfolio.
 - **Budget**: Dùng Fabric trial; người dùng báo còn hơn 30 ngày (chưa xác minh hạn và mức capacity). Không giả định có ngân sách mua thêm.
-- **Runtime**: Stream chạy thủ công, người chạy truyền thời lượng hữu hạn cho từng phiên; collector tự dừng nhận khi hết thời lượng rồi đóng phiên có kiểm soát. Metadata batch bắt đầu lúc 07:00 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:00 UTC. Đây là lịch bắt đầu, không phải cam kết giờ hoàn tất. Batch lỗi thì dùng bản thành công gần nhất, cảnh báo thời điểm cập nhật và kiểm tra lại market trước đăng ký; lịch cloud chưa được triển khai.
+- **Runtime**: Stream chạy thủ công, người chạy truyền thời lượng hữu hạn cho từng phiên; collector tự dừng nhận khi hết thời lượng rồi đóng phiên có kiểm soát. Metadata batch bắt đầu lúc 07:15 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:15 UTC, và mục tiêu xong trước 08:15 giờ tuyệt đối (mục tiêu, chưa là cam kết cho tới khi đo). Batch lỗi thì dùng bản thành công gần nhất, cảnh báo thời điểm cập nhật và kiểm tra lại market trước đăng ký; lịch cloud chưa được triển khai.
 - **Level**: Độ phức tạp phải hợp với trình độ fresher — ưu tiên rõ ràng, kiểm chứng được hơn là phức tạp.
 - **Live freshness**: Người dùng chọn 15–30 giây từ collector receive đến dữ liệu được hiển thị trên dashboard; 30 giây là cận trên mục tiêu. Đo cả ingestion, query và refresh, không chỉ thời gian gửi vào Eventstream. Chưa chốt tỷ lệ đạt/percentile và cách đánh giá lúc lỗi/recovery.
 - **Authority**: Kiểm tra tài nguyên chỉ đọc không đồng nghĩa được tạo, triển khai hay chạy job trên cloud; các thao tác đó cần duyệt riêng.
@@ -69,7 +69,8 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Làm lại từ đầu, không dùng bản planning cũ làm baseline | Người dùng chọn khi được hỏi | — Pending |
 | Eventhouse/KQL phục vụ cả live và lịch sử | Người dùng chọn phương án 1 sau research | — Pending |
 | Lakehouse metadata + batch discovery hằng ngày trước đăng ký WebSocket | Người dùng yêu cầu danh sách market lấy từ metadata có tag AI | — Pending |
-| Batch metadata bắt đầu lúc 07:00 hằng ngày, Asia/Saigon (UTC+7) | Người dùng chọn 7 giờ sáng; giờ địa phương theo ngữ cảnh phiên | — Pending |
+| Batch metadata bắt đầu lúc 07:15 hằng ngày, Asia/Saigon (UTC+7), xong trước 08:15 tuyệt đối | Người dùng chọn 07:00 rồi đổi sang 07:15 ngày 2026-10-21 khi chốt SLO Phase 1 | — Pending |
+| SLO live: đạt khi ≥95% mẫu ≤30 giây; metadata fallback không đặt tuổi tối đa, giảm thiểu bằng cảnh báo lỗi batch (META-07); R-01, R-02 do người dùng chấp nhận | Người dùng chọn có chủ ý ngày 2026-10-21 (Phase 1 discuss và plan:pre); cách tính lúc lỗi/recovery vẫn chưa chốt | — Pending |
 | Dashboard cập nhật trong 15–30 giây từ collector receive | Người dùng chọn sau khi được hỏi mục tiêu độ trễ; cần đo kiểm end-to-end | — Pending |
 | Thời lượng stream được truyền khi chạy từng phiên | Người dùng chọn phương án 3; không cố định 30 hay 90 phút | — Pending |
 | Top movers dùng cửa sổ 5/15/60 phút; thiếu lịch sử hiển thị chưa đủ dữ liệu | Người dùng đồng ý cả ba cửa sổ và hành vi khi phiên ngắn | — Pending |
@@ -83,7 +84,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - Đã chốt top movers 5/15/60 phút và shock midpoint >=5 điểm phần trăm trong 5 phút (cả tăng/giảm), cấu hình được. Không coi ngưỡng này là bằng chứng bất thường thống kê. Chi tiết xử lý quote cũ, gap, market ít giao dịch và gộp các lần vượt ngưỡng còn cần thiết kế.
 - Đã xác minh tài liệu về kênh market WebSocket và discovery; rate, lateness, delivery/reconnect thực tế chưa đo. WebSocket đăng ký bằng outcome asset ID, không phải Gamma market ID.
 - Đã chọn Lakehouse cho metadata và Eventhouse/KQL cho analytics. Cơ chế chạy batch, cách collector đọc metadata và chi tiết Fabric transport còn cần thiết kế/kiểm chứng.
-- Batch chỉ công bố version hoàn chỉnh sau khi phân trang/kiểm tra thành công. Người dùng chọn dùng bản thành công gần nhất khi batch lỗi, cảnh báo rõ thời điểm cập nhật và kiểm tra lại market trước đăng ký. Không có snapshot thành công hoặc không kiểm tra được market thì không thể coi subscription là hợp lệ; hành vi lỗi cụ thể cần thiết kế trong phase. Chưa đặt tuổi tối đa cho snapshot fallback.
+- Batch chỉ công bố version hoàn chỉnh sau khi phân trang/kiểm tra thành công. Người dùng chọn dùng bản thành công gần nhất khi batch lỗi, cảnh báo rõ thời điểm cập nhật và kiểm tra lại market trước đăng ký. Không có snapshot thành công hoặc không kiểm tra được market thì không thể coi subscription là hợp lệ; hành vi lỗi cụ thể cần thiết kế trong phase. Không đặt tuổi tối đa cho snapshot fallback (lựa chọn có chủ ý của người dùng, 2026-10-21); rủi ro được giảm thiểu bằng cảnh báo lỗi batch (META-07).
 - Mức tiêu thụ capacity của trial chưa đo; cần đo để hướng dẫn chọn thời lượng an toàn. Người chạy chủ động truyền thời lượng từng phiên; giới hạn kỹ thuật và thời gian drain khi đóng phiên còn cần thiết kế.
 - Không có tuyên bố nào về hiệu quả với người dùng thật hay độ trễ cho tới khi có đo đạc.
 

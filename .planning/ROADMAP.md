@@ -17,7 +17,7 @@ Vì thứ tự theo giai đoạn, luồng xuyên suốt đầu tiên chỉ chạ
 - [ ] **Phase 2: Design** — Source inventory, data contract và quyết định kiến trúc trước khi viết code.
 - [ ] **Phase 3: Build — Ingest** — Metadata Lakehouse, collector và đường stream tới Eventhouse chạy được trên một phiên thật.
 - [ ] **Phase 4: Build — Transform và KPI** — Làm sạch, kiểm soát chất lượng, replay và các KPI movers, spread, activity, shocks.
-- [ ] **Phase 5: Operationalize** — Git, môi trường tham số hóa, CI, lịch 07:00 và hành vi khi batch lỗi.
+- [ ] **Phase 5: Operationalize** — Git, môi trường tham số hóa, CI, lịch 07:15 và hành vi khi batch lỗi.
 - [ ] **Phase 6: Publish** — Dashboard live, truy vấn lịch sử và phát hành có phiên bản cùng quyền truy cập.
 - [ ] **Phase 7: Run và govern** — Giám sát, đối soát, hiển thị gap/fallback và runbook.
 - [ ] **Phase 8: Scale và retire** — Checklist readiness, đánh giá scale theo tín hiệu, kế hoạch gỡ bỏ và gói portfolio.
@@ -31,7 +31,7 @@ Vì thứ tự theo giai đoạn, luồng xuyên suốt đầu tiên chỉ chạ
 **Success Criteria**:
 1. Owner, người bảo trì và đầu mối escalate được ghi trong repo và người dùng xác nhận.
 2. Ba câu hỏi phân tích (movers, activity, shocks) gắn với KPI có công thức, đơn vị và consumer giả định; consumer được đánh dấu là giả thuyết portfolio, không phải kết quả phỏng vấn.
-3. SLO có con số và cách đo: tỷ lệ đạt cùng điểm đo của mục tiêu 15–30 giây, hạn hoàn tất batch, tuổi tối đa metadata fallback, đánh giá lúc lỗi/recovery. Mục người dùng chưa chốt được ghi là chưa chốt, không tự điền.
+3. SLO có con số và cách đo: tỷ lệ đạt cùng điểm đo của mục tiêu 15–30 giây (≥95% mẫu ≤30 giây), hạn hoàn tất batch (bắt đầu 07:15, xong trước 08:15 tuyệt đối), metadata fallback không đặt tuổi tối đa theo lựa chọn có chủ ý của người dùng, đánh giá lúc lỗi/recovery. Mục người dùng chưa chốt (lúc lỗi/recovery) được ghi là chưa chốt, không tự điền.
 4. Giá trị portfolio và giới hạn (không có đo lường người dùng thật, không có bằng chứng latency) ghi rõ. Chưa có hành động nào trên cloud.
 **Plans:** TBD during phase planning.
 **Research needed:** Không cần nghiên cứu ngoài; cần câu trả lời từ người dùng. DATA-SPEC mục 1 được viết ở phase này.
@@ -80,13 +80,14 @@ Vì thứ tự theo giai đoạn, luồng xuyên suốt đầu tiên chỉ chạ
 ### Phase 5: Operationalize
 **Goal:** Cùng một code chạy được qua các môi trường từ Git, kiểm thử tự động trước khi triển khai, và batch metadata chạy theo lịch với hành vi lỗi rõ ràng.
 **Depends on:** Phase 4
-**Requirements:** OPER-01, OPER-02, META-01, META-04
+**Requirements:** OPER-01, OPER-02, META-01, META-04, META-07
 **Success Criteria**:
 1. Toàn bộ code và cấu hình nằm trong Git; tên workspace/item, đường dẫn, lịch và ngưỡng tham số hóa theo dev/prod; không có secret trong repo hay bằng chứng.
 2. CI chạy unit test và kiểm tra cấu hình/đồ thị trước khi triển khai; kết quả được lưu, check chưa chạy ghi NOT-RUN.
-3. Batch được cấu hình bắt đầu 07:00 Asia/Saigon hằng ngày; có bằng chứng cấu hình lịch và một scheduled run thực tế. Manual trigger không được coi là bằng chứng lịch đã chạy.
+3. Batch được cấu hình bắt đầu 07:15 Asia/Saigon (00:15 UTC) hằng ngày, hạn hoàn tất 08:15 tuyệt đối; có bằng chứng cấu hình lịch và một scheduled run thực tế. Manual trigger không được coi là bằng chứng lịch đã chạy.
 4. Khi cố tình làm batch mới thất bại, phiên mới dùng bản thành công gần nhất, cảnh báo thời điểm cập nhật và kiểm tra lại market trước đăng ký; batch dở dang không thay bản hoàn chỉnh.
-5. Chạy bằng danh tính dịch vụ nếu tenant cho phép; nếu không, giới hạn được ghi rõ. Triển khai lịch trên cloud cần quyền duyệt riêng.
+5. Khi batch lỗi hoặc không xong trước 08:15, người vận hành nhận cảnh báo (META-07), thử bằng lỗi cố ý.
+6. Chạy bằng danh tính dịch vụ nếu tenant cho phép; nếu không, giới hạn được ghi rõ. Triển khai lịch trên cloud cần quyền duyệt riêng.
 **Plans:** TBD during phase planning.
 **Research needed:** Ngữ nghĩa scheduler và múi giờ, Git integration và deployment pipelines của Fabric trên trial, danh tính dịch vụ.
 
@@ -96,7 +97,7 @@ Vì thứ tự theo giai đoạn, luồng xuyên suốt đầu tiên chỉ chạ
 **Requirements:** VIEW-01, VIEW-03, PUBL-01
 **Success Criteria**:
 1. Dashboard live phục vụ cả ba câu hỏi (movers, activity, shocks) từ cùng định nghĩa KPI với Phase 4.
-2. Phép đo collector-receive → visible-update kiểm cận trên 30 giây theo giao thức đã định ở INCP-02 và DATA-SPEC; không đổi thành p95 hay bỏ mẫu chậm. Nếu chưa đạt thì sửa hoặc đưa lại quyết định cho người dùng.
+2. Phép đo collector-receive → visible-update kiểm tiêu chí ≥95% mẫu ≤30 giây (người dùng chọn có chủ ý ở Phase 1) theo giao thức đã định ở INCP-02 và DATA-SPEC, báo cáo p50/p95/max và liệt kê mẫu chậm; không đổi tiêu chí hay bỏ mẫu chậm nếu không có quyết định mới của người dùng. Cách tính lúc lỗi/recovery phải được người dùng chốt trước khi đo. Nếu chưa đạt thì sửa hoặc đưa lại quyết định cho người dùng.
 3. Người xem chọn phiên/ngày bằng KQL, xem ba câu hỏi với metadata version và coverage tương ứng; kết quả lịch sử đối soát được với live cho cùng khoảng và định nghĩa.
 4. Đối tượng phục vụ có phiên bản, quyền truy cập khớp contract và xuất hiện trong catalog nếu Fabric hỗ trợ; nếu không hỗ trợ, giới hạn được ghi.
 5. Bằng chứng ghi nhận capacity, độ trễ ingestion/query/refresh và nguồn dữ liệu của mẫu test; fixture phân biệt với live.
@@ -154,6 +155,6 @@ Execution order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8, sau khi requiremen
 | 7. Run và govern | 0/TBD | Not started | - |
 | 8. Scale và retire | 0/TBD | Not started | - |
 
-**Coverage:** 35 v1 requirements mapped exactly once; 0 unmapped. No phase plans or implementations exist yet.
+**Coverage:** 36 v1 requirements mapped exactly once; 0 unmapped. No phase plans or implementations exist yet.
 
 *Last updated: 2026-10-21 after remapping to the 7-stage delivery process*

@@ -11,7 +11,7 @@ Cấu trúc theo quy trình triển khai Inception → Design → Build → Oper
 ### Inception
 
 - [ ] **INCP-01**: Data product có owner được ghi tên, kèm người bảo trì và đầu mối escalate, lưu trong repo.
-- [ ] **INCP-02**: KPI và SLO được ghi bằng con số kèm cách đo: tỷ lệ đạt và điểm đo của mục tiêu 15–30 giây, hạn hoàn tất batch 07:00, tuổi tối đa của metadata fallback, cách đánh giá lúc lỗi/recovery. Mục chưa được người dùng chốt ghi rõ là chưa chốt, không tự điền.
+- [ ] **INCP-02**: KPI và SLO được ghi bằng con số kèm cách đo: tỷ lệ đạt và điểm đo của mục tiêu 15–30 giây (người dùng chọn 2026-10-21: đạt khi ≥95% mẫu ≤30 giây, báo cáo p50/p95/max), hạn hoàn tất batch (bắt đầu 07:15, xong trước 08:15 giờ tuyệt đối Asia/Saigon), metadata fallback không đặt tuổi tối đa (lựa chọn có chủ ý của người dùng, giảm thiểu bằng cảnh báo lỗi batch), cách đánh giá lúc lỗi/recovery (chưa chốt). Mục chưa được người dùng chốt ghi rõ là chưa chốt, không tự điền.
 
 ### Design
 
@@ -45,8 +45,9 @@ Cấu trúc theo quy trình triển khai Inception → Design → Build → Oper
 
 - [ ] **OPER-01**: Code nằm trong Git, cấu hình (tên workspace/item, đường dẫn, lịch, ngưỡng) tham số hóa theo môi trường dev/prod, secret ngoài repo; chạy bằng danh tính dịch vụ nếu tenant cho phép, nếu không ghi rõ giới hạn.
 - [ ] **OPER-02**: CI chạy unit test cho các phép biến đổi thuần và kiểm tra cấu hình/đồ thị trước khi triển khai; kết quả test nằm trong bằng chứng, check chưa chạy ghi NOT-RUN.
-- [ ] **META-01**: Người vận hành có batch lấy metadata có tag AI bắt đầu lúc 07:00 hằng ngày, múi giờ Asia/Saigon (UTC+7; 00:00 UTC).
+- [ ] **META-01**: Người vận hành có batch lấy metadata có tag AI bắt đầu lúc 07:15 hằng ngày, múi giờ Asia/Saigon (UTC+7; 00:15 UTC). Đổi từ 07:00 ngày 2026-10-21 theo người dùng.
 - [ ] **META-04**: Khi batch mới thất bại, người vận hành vẫn dùng được phiên bản metadata thành công gần nhất với cảnh báo rõ thời điểm cập nhật.
+- [ ] **META-07**: Người vận hành nhận cảnh báo khi batch metadata lỗi hoặc không công bố được phiên bản đầy đủ trước hạn 08:15 Asia/Saigon (giảm thiểu rủi ro fallback không có tuổi tối đa). Thêm 2026-10-21 theo người dùng; kênh cảnh báo do phase thiết kế chọn.
 
 ### Publish
 
@@ -91,7 +92,7 @@ Các mục v2 là đề xuất hoãn từ research, không phải cam kết phá
 
 Không hỏi thêm từng chi tiết triển khai trong new-project: phase design phải xác định baseline/stale-quote tolerance, nhóm shock liên tiếp, raw retention, giới hạn drain/retry, metadata publication contract và cách collector đọc Lakehouse. Những quyết định ảnh hưởng phạm vi/quyền/ngân sách phải đưa lại người dùng.
 
-VIEW-01 là mục tiêu người dùng chọn, chưa có số đo hay cam kết percentile. INCP-02 và DATA-SPEC phải định nghĩa phép đo và điều kiện lỗi/recovery trước khi test; không âm thầm đổi thành p95 hoặc bỏ mẫu chậm. Giờ batch là giờ bắt đầu, không tự suy ra deadline hoàn tất. Metadata fallback chưa có tuổi tối đa được duyệt.
+VIEW-01 là mục tiêu người dùng chọn; người dùng đã chọn có chủ ý tiêu chí đạt ≥95% mẫu ≤30 giây (2026-10-21), chưa có số đo. INCP-02 và DATA-SPEC phải định nghĩa phép đo; điều kiện lỗi/recovery còn chưa chốt (O-01) và phải được người dùng chốt trước khi đo ở Phase 6. Không đổi tiêu chí hay bỏ mẫu chậm nếu không có quyết định mới của người dùng. Batch bắt đầu 07:15 và phải xong trước 08:15 giờ tuyệt đối (người dùng chọn 2026-10-21). Metadata fallback không đặt tuổi tối đa, theo lựa chọn có chủ ý của người dùng; rủi ro R-01, R-02 do người dùng chấp nhận (DATA-SPEC mục 8) và được giảm thiểu bằng META-07.
 
 ## Traceability
 
@@ -122,6 +123,7 @@ VIEW-01 là mục tiêu người dùng chọn, chưa có số đo hay cam kết 
 | KPI-05 | Phase 4 | Pending |
 | META-01 | Phase 5 | Pending |
 | META-04 | Phase 5 | Pending |
+| META-07 | Phase 5 | Pending |
 | OPER-01 | Phase 5 | Pending |
 | OPER-02 | Phase 5 | Pending |
 | VIEW-01 | Phase 6 | Pending |
@@ -135,7 +137,7 @@ VIEW-01 là mục tiêu người dùng chọn, chưa có số đo hay cam kết 
 | RETI-01 | Phase 8 | Pending |
 | RETI-02 | Phase 8 | Pending |
 
-**Coverage:** 35 v1 requirements (25 from the earlier draft, 10 added on 2026-10-21 to cover Inception, Design, Operationalize, Publish and Scale & retire); 35 mapped; 0 unmapped; approval pending.
+**Coverage:** 36 v1 requirements (25 from the earlier draft, 10 added on 2026-10-21 to cover Inception, Design, Operationalize, Publish and Scale & retire, and META-07 added on 2026-10-21 during Phase 1 planning); 36 mapped; 0 unmapped; approval pending.
 
 ---
 *Last updated: 2026-10-21 after remapping to the 7-stage delivery process (8 phases)*

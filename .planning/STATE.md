@@ -46,7 +46,7 @@ Progress: 0% — 0 phases and 0 plans completed.
 Full decisions: PROJECT.md.
 
 - Roadmap theo quy trình Inception → Design → Build (Ingest, Transform & KPI) → Operationalize → Publish → Run & govern → Scale & retire; thay thế lựa chọn vertical MVP trước đó.
-- Daily AI-tag metadata → Lakehouse at 07:00 Asia/Saigon; fallback to last successful version with timestamp warning and market revalidation.
+- Daily AI-tag metadata → Lakehouse at 07:15 Asia/Saigon (deadline 08:15 absolute); fallback to last successful version with timestamp warning and market revalidation.
 - Runtime duration supplied per stream session; Python → Eventstream → Eventhouse/KQL live/history.
 - Collector-to-visible target 15–30 seconds; movers 5/15/60 minutes; configurable shock >=5 percentage points in 5 minutes.
 - dataeng is active; DATA-SPEC/DATA-VERIFY belong to each phase's design/verification steps. None exists yet.
