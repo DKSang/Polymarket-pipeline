@@ -43,7 +43,7 @@ Help a researcher identify and explain price movements using traceable observati
 - Indirect AI topics such as chip stocks or crypto solely because of an AI association — user selected direct AI events.
 - Purchasing additional capacity/services — constrained to currently available resources.
 - Cloud resource creation, deployment or job execution during initialization — separate explicit approval is required.
-- Modifying the shared Knowledge Hub, installed skills or GSD Core — these remain unchanged.
+- Modifying installed skills or GSD Core, or making unrelated changes to the shared Knowledge Hub — excluded. The user later authorized scoped source ingestion into the Hub; see the knowledge exception below.
 
 ## Context
 
@@ -80,7 +80,7 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 - **Runtime:** Manual collection, initially a few minutes for testing. Longer collection begins after the complete data flow works; exact durations and schedules remain open.
 - **Performance:** p95 <= 60 seconds from collector receipt to displayed result is a target requiring measured verification, not an established result.
 - **Evidence:** Short sessions cannot establish live 60-minute-window correctness or sustained freshness. Use appropriate deterministic fixtures early and later measured sessions, subject to agreed verification scope.
-- **Knowledge:** Shared Hub `C:/Users/sanbo/Code/fabric-agent-knowledge` is read-only. Consult index and concept/synonym searches before technical decisions; verify time-sensitive API/SDK behavior against current official sources when it becomes a dependency.
+- **Knowledge:** Shared Hub `C:/Users/sanbo/Code/fabric-agent-knowledge` is read-only by default. On 2026-10-21 the user explicitly authorized the karpathy-llm-wiki Ingest workflow for sources gathered in this research, including raw snapshots, compiled articles, index and ingest log. This scoped exception does not authorize unrelated edits, changes to installed skills or automatic future ingestion. Consult index and concept/synonym searches before technical decisions; verify time-sensitive API/SDK behavior against current official sources when it becomes a dependency.
 - **Authority:** Resource inspection does not authorize deployment, mutation or job execution. Do not inherit old resource ownership or prior approvals.
 - **Delivery:** Interactive GSD initialization; present significant assumptions and decisions for confirmation. No claims of measured user impact without actual measurement.
 
@@ -110,6 +110,14 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 - Exact KPI anchors and ranking ties should be carried into requirements for review, without importing unreviewed historical implementation details.
 
 ## Knowledge Sources
+
+### Research Progress
+
+Workflow preferences are saved in `.planning/config.json`: interactive, standard granularity, sequential, Git tracking, model inherit, research/plan check/verifier enabled, full instruction content, and all four optional PR sections enabled. Initial research is recorded in `.planning/research/SUMMARY.md` with the source registry and read-only Fabric MCP evidence. Requirements scoping and roadmap approval remain pending; no final stack has been selected.
+
+The user-authorized Wiki ingestion created seven source-scoped articles from twelve official snapshots. This updates the earlier Query-only boundary for that explicit operation; current external behavior still needs rechecking when selected as an implementation dependency.
+
+### Articles Consulted
 
 The following exact local Wiki articles were consulted during discovery/initialization. They provide conceptual guidance with the evidence boundaries stated in each article; their educational examples are not current API contracts.
 

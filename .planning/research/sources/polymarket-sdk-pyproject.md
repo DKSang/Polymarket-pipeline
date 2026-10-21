@@ -1,0 +1,133 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "polymarket-client"
+version = "0.13.0"
+description = "Official Python client for Polymarket"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Polymarket Engineering", email = "engineering@polymarket.com" },
+]
+maintainers = [
+  { name = "Polymarket Engineering", email = "engineering@polymarket.com" },
+]
+keywords = ["polymarket", "prediction-markets", "client", "trading", "web3"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = [
+  "eth-abi>=5,<6",
+  "eth-account>=0.13,<1",
+  "eth-utils>=4,<6",
+  "httpx[http2]>=0.27,<1",
+  "msgpack>=1,<2",
+  "pydantic>=2,<3",
+  "typing-extensions>=4.15,<5",
+  "websockets>=13,<16",
+]
+
+[project.optional-dependencies]
+arrow = ["pyarrow>=15,<22"]
+pandas = ["pandas>=2,<3", "pyarrow>=15,<22"]
+polars = ["polars>=1,<2", "pyarrow>=15,<22"]
+quant = ["pandas>=2,<3", "polars>=1,<2", "pyarrow>=15,<22"]
+
+[project.urls]
+Homepage = "https://polymarket.com"
+Documentation = "https://docs.polymarket.com"
+Repository = "https://github.com/Polymarket/py-sdk"
+Issues = "https://github.com/Polymarket/py-sdk/issues"
+
+[dependency-groups]
+dev = [
+  "pytest>=8,<9",
+  "pytest-cov>=6,<7",
+  "respx>=0.22,<1",
+  "ruff>=0.11,<1",
+  "pyright>=1.1,<2",
+  "pytest-watcher>=0.6.3",
+  "python-dotenv>=1.2.2",
+  # Frames extras — dev needs all of them to run the frames test suite.
+  # Production users install only the extras they need via
+  # ``polymarket-client[pandas|polars|arrow|quant]``.
+  "pyarrow>=15,<22",
+  "pandas>=2,<3",
+  "polars>=1,<2",
+]
+docs = [
+  "sphinx>=8,<10",
+]
+
+[tool.hatch.build]
+exclude = [
+  "/.github",
+  "/.vscode",
+  "/dist",
+  "/docs",
+  "/tests",
+  "/AGENTS.md",
+  "/CONTRIBUTING.md",
+  "/release-please-config.json",
+  "/Makefile",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/polymarket"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+markers = [
+  "integration: tests that call live Polymarket services or require credentials",
+  "metered: integration tests that require explicit opt-in because they may place orders, spend funds, or mutate live state",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "examples"]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "UP",
+  "B",
+  "SIM",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+include = ["src", "tests", "examples"]
+pythonVersion = "3.11"
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
+
+# The frames adapters wrap pyarrow / pandas / polars, none of which ship
+# first-class type stubs that satisfy strict mode. Loosen the unknown-type
+# reports for these modules only; everything else stays strict.
+[[tool.pyright.executionEnvironments]]
+root = "src/polymarket/frames"
+reportMissingTypeStubs = "none"
+reportUnknownMemberType = "none"
+reportUnknownArgumentType = "none"
+reportUnknownVariableType = "none"
+reportUnknownParameterType = "none"
+reportUnknownLambdaType = "none"
