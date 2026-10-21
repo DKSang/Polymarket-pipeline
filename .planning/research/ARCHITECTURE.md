@@ -5,7 +5,7 @@
 
 ## Drivers and unresolved constraints
 
-Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription, starting at 07:00 Asia/Saigon (UTC+7; 00:00 UTC). Numerical live freshness SLO, batch completion deadline, session duration and capacity headroom are **Open**. The cloud schedule has not been deployed. No benchmark or generic wiki decision is treated as project approval.
+Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription, starting at 07:00 Asia/Saigon (UTC+7; 00:00 UTC). The live target is 15–30 seconds from collector receipt to a visible dashboard update, using 30 seconds as the upper target. Its percentile/measurement coverage and outage treatment, batch completion deadline, session duration and capacity headroom are **Open**. The cloud schedule has not been deployed. No benchmark or generic wiki decision is treated as project approval.
 
 ## Candidate component flow
 
@@ -45,8 +45,8 @@ Raw, cleaned and serving are data guarantees, not a requirement to deploy three 
 
 - **Selected scope:** A for live and historical analytics, plus daily metadata snapshots/mapping in Lakehouse. The metadata Lakehouse is required independently of whether analytical history lives in KQL. B/C remain alternatives for reconsideration, not current requirements.
 - **Trade-offs:** KQL/dashboard definitions are Fabric-specific. B needs reconciliation across paths and delayed OneLake availability. C must not promise seconds-level freshness without measurement.
-- **Wrong if:** The selected route fails the agreed p95 receive-to-visible target in two representative sessions, lacks required historical output, or exceeds the subsequently agreed per-session capacity budget.
-- **Verification:** A bounded cloud spike after approval, then measured sink/visual latency, query results and capacity evidence. No numeric pass threshold is invented before requirements.
+- **Wrong if:** The selected route cannot satisfy the user-selected collector-to-visible upper target of 30 seconds under the acceptance protocol to be agreed, lacks required historical output, or exceeds the subsequently agreed per-session capacity budget. Do not assume the user approved a p95 rather than an all-sample bound.
+- **Verification:** A bounded cloud spike after approval, then timestamped sink/query/visual latency, query results and capacity evidence. Test the complete 30-second budget, not an individual refresh setting; define sampling and percentile before declaring pass.
 
 ### ADR-R2: Processing mode by flow
 

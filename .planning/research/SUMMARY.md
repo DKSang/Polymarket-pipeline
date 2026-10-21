@@ -20,7 +20,7 @@ See [STACK.md](STACK.md): daily Lakehouse metadata batch; native WebSocket + HTT
 
 ### Expected Features
 
-See [FEATURES.md](FEATURES.md): daily metadata snapshots and valid subscription mapping; reviewed watchlist; finite sessions; raw capture/replay; visible gaps/quality; movers, activity, shocks and portfolio evidence. Metadata batch start time is selected as 07:00 Asia/Saigon (00:00 UTC); the schedule is not deployed. Windows, shock parameters, live/metadata freshness and batch completion deadline still require user scoping. Historical serving is selected as KQL.
+See [FEATURES.md](FEATURES.md): daily metadata snapshots and valid subscription mapping; reviewed watchlist; finite sessions; raw capture/replay; visible gaps/quality; movers, activity, shocks and portfolio evidence. Metadata batch starts at 07:00 Asia/Saigon (00:00 UTC); the schedule is not deployed. Live freshness is selected as 15–30 seconds from collector receipt to visible dashboard update, with a 30-second upper target; measurement percentile/coverage remains open. Windows, shock parameters, metadata freshness and batch completion deadline still require user scoping. Historical serving is selected as KQL.
 
 ### Architecture Approach
 
@@ -57,11 +57,11 @@ This is not an approved five-phase roadmap. Final phase count, vertical versus h
 | Fabric capabilities | High for documentation | Learn pages fetched; tenant permissions/support not checked |
 | Runtime latency and cost | Low | No cloud jobs or benchmarks executed |
 | Feature fit | Medium | Consistent with PROJECT.md; no external user validation |
-| Architecture selection | Medium | Real alternatives compared; numerical SLO and output scope pending |
+| Architecture selection | Medium | Analytics/metadata routes and 15–30 second live target selected; runtime feasibility and acceptance sampling unverified |
 
 ### Gaps to Address
 
-Agree live freshness, metadata completion/freshness/failure behavior, windows, session duration and shock rule. Daily metadata start is selected as 07:00 Asia/Saigon (00:00 UTC); historical serving is Eventhouse/KQL and metadata Lakehouse is required. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
+Agree the live-target measurement protocol, metadata completion/freshness/failure behavior, windows, session duration and shock rule. The user selected a 15–30 second collector-to-dashboard target, daily metadata start at 07:00 Asia/Saigon (00:00 UTC), Eventhouse/KQL history and a mandatory metadata Lakehouse. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
 
 ### Data engineering capability readiness
 

@@ -24,6 +24,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - [ ] Ingest batch metadata Polymarket có tag AI vào Lakehouse lúc 07:00 hằng ngày, múi giờ Asia/Saigon (UTC+7); lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
 - [ ] Dùng Eventhouse/KQL cho phân tích live và báo cáo lịch sử theo phiên/ngày; Lakehouse là nơi lưu metadata discovery bắt buộc.
 - [ ] Dashboard live và báo cáo lịch sử theo ngày dựng từ dữ liệu đã thu trong các phiên.
+- [ ] Dashboard phản ánh dữ liệu mới trong khoảng mục tiêu 15–30 giây từ lúc collector nhận dữ liệu; dùng 30 giây làm ngưỡng kiểm chứng, chưa có kết quả đo thực tế.
 - [ ] Chạy theo phiên thủ công, hữu hạn, ngắn; xử lý mất kết nối và cho thấy khoảng trống dữ liệu thay vì che đi.
 - [ ] Có bằng chứng portfolio tái lập được: code, tài liệu thiết kế, định nghĩa KPI, hướng dẫn chạy, kết quả kiểm thử và demo.
 
@@ -51,6 +52,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - **Budget**: Dùng Fabric trial; người dùng báo còn hơn 30 ngày (chưa xác minh hạn và mức capacity). Không giả định có ngân sách mua thêm.
 - **Runtime**: Stream chạy thủ công theo phiên ngắn; metadata batch được yêu cầu bắt đầu lúc 07:00 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:00 UTC. Đây là lịch bắt đầu, không phải cam kết giờ hoàn tất. Thời lượng phiên và chính sách khi metadata cũ/lỗi còn mở; lịch cloud chưa được triển khai.
 - **Level**: Độ phức tạp phải hợp với trình độ fresher — ưu tiên rõ ràng, kiểm chứng được hơn là phức tạp.
+- **Live freshness**: Người dùng chọn 15–30 giây từ collector receive đến dữ liệu được hiển thị trên dashboard; 30 giây là cận trên mục tiêu. Đo cả ingestion, query và refresh, không chỉ thời gian gửi vào Eventstream. Chưa chốt tỷ lệ đạt/percentile và cách đánh giá lúc lỗi/recovery.
 - **Authority**: Kiểm tra tài nguyên chỉ đọc không đồng nghĩa được tạo, triển khai hay chạy job trên cloud; các thao tác đó cần duyệt riêng.
 
 ## Key Decisions
@@ -66,6 +68,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Eventhouse/KQL phục vụ cả live và lịch sử | Người dùng chọn phương án 1 sau research | — Pending |
 | Lakehouse metadata + batch discovery hằng ngày trước đăng ký WebSocket | Người dùng yêu cầu danh sách market lấy từ metadata có tag AI | — Pending |
 | Batch metadata bắt đầu lúc 07:00 hằng ngày, Asia/Saigon (UTC+7) | Người dùng chọn 7 giờ sáng; giờ địa phương theo ngữ cảnh phiên | — Pending |
+| Dashboard cập nhật trong 15–30 giây từ collector receive | Người dùng chọn sau khi được hỏi mục tiêu độ trễ; cần đo kiểm end-to-end | — Pending |
 
 ## Open Questions and Assumptions
 
@@ -95,4 +98,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-21 after user selected the daily metadata batch start time of 07:00 Asia/Saigon*
+*Last updated: 2026-10-21 after user selected a 15–30 second collector-to-dashboard freshness target*

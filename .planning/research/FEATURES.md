@@ -14,7 +14,7 @@
 | Top movers | Rank outcome-level midpoint changes in percentage points across selected windows | Medium | Valid fresh two-sided quotes and sufficient covered history |
 | Activity | Observed trade-message frequency, observed size/notional where available, and spread over time | Medium | Trade fields validated; do not label as complete market turnover |
 | Shocks | Configurable threshold rule with timestamp, before/after context and coverage flags | Medium | Agreed metric, threshold, window and sparse-data behavior |
-| Live view | Selected outcomes, movers, activity, shocks and source/pipeline freshness | Medium | Query layer and explicit refresh target |
+| Live view | Selected outcomes, movers, activity, shocks and freshness; user-selected 15–30 seconds from collector receive to visible dashboard update | Medium | Query/ingestion/refresh budget and end-to-end measurement against the 30-second upper target |
 | History | Session/day views in Eventhouse/KQL, selected by user; coverage and quality counts | Low–medium | Retained raw observations; session boundaries |
 | Portfolio | Architecture rationale, KPI definitions, reproducible runbook, fixtures, evidence and demo | Medium | At least one verified end-to-end session |
 
@@ -46,7 +46,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 ## Decisions still needed
 
 1. Accept or adjust v1 capability groups and market-selection policy.
-2. Choose windows, shock rule, finite session duration and a measurable live freshness target.
+2. Choose windows, shock rule and finite session duration. Live freshness is selected as 15–30 seconds from collector receive to visible dashboard update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
 3. Choose metadata completion/freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Daily start time is selected as 07:00 Asia/Saigon (00:00 UTC); Eventhouse/KQL history and Lakehouse metadata are already selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
