@@ -42,7 +42,9 @@ Results:
 - `outcomes` and `clobTokenIds` in these sampled markets were JSON-encoded strings. Parse and validate matching lengths instead of assuming JSON arrays.
 - The five-event sample included hardware, employment and IPO questions. The AI tag is broader than the agreed AI-model scope.
 
-**Synthesis:** Discover candidates using tags plus model-related terms; manually review an allowlist, check each nested market's status/order-book availability, and freeze a versioned watchlist per session. Token IDs from a prior session are not assumed valid forever. Protocol V2 identifiers require validation against current market metadata.
+**User update, 2026-10-21:** Daily batch discovery of AI-tagged metadata into Lakehouse is required. Collector subscriptions must derive from that stored metadata. Keep all discovered AI-tag candidates distinct from the narrower AI-model watchlist.
+
+**Synthesis:** Validate and publish complete batch versions with market/outcome/asset mappings; propose reviewing eligibility and freezing a watchlist per session. Native subscriptions use outcome asset IDs, while market IDs support joins. Token IDs from a prior session are not assumed valid forever. Protocol V2 identifiers require validation against current market metadata. Daily discovery does not guarantee immediate coverage of new markets.
 
 ## Stream contract findings
 

@@ -12,10 +12,12 @@
 | Metadata HTTP | `httpx==0.28.1` | Discovery and session-start metadata snapshots | High for version lookup; integration untested |
 | WebSocket | `websockets==17.3` | Async receive loop; implement documented application heartbeat explicitly | High for version lookup; integration untested |
 | Fabric producer | `azure-eventhub==5.15.1` | Eventstream custom endpoint supports Event Hubs SDK/AMQP; avoid a separately provisioned broker for v1 | High for documented endpoint support; target auth/network untested |
+| Metadata storage | Fabric Lakehouse, daily raw snapshots + validated market/outcome/asset mapping | User-required discovery source for WebSocket subscriptions; publish complete metadata versions | User requirement confirmed; persistence/read path untested |
+| Metadata batch orchestration | Scheduled bounded Fabric notebook or pipeline + notebook | Daily cadence selected; exact mechanism to compare during phase design | Medium; workspace/schedule unverified |
 | Raw landing / live query | Fabric Eventstream → Eventhouse / KQL database | Preserve a stable envelope, query validated observations and session health | High for capabilities; latency/cost unknown |
 | Live serving | Fabric Real-Time Dashboard | Native Eventhouse queries, refresh controls and visual refresh timestamps | High for capability; freshness target pending |
-| Historical serving | Session/day aggregates in Eventhouse initially | Meets a historical analytical view without requiring a second compute engine | Medium; exact deliverable still needs scoping |
-| Optional lake learning path | Eventhouse OneLake availability + bounded Spark notebook | Delta access and explicit historical transformations if the user wants a lakehouse component | High for support; medium for project fit |
+| Historical serving | Session/day aggregates in Eventhouse/KQL | User selected this route on 2026-10-21 | Selected; acceptance targets pending |
+| Optional analytical lake extension | Eventhouse OneLake availability + bounded Spark history transforms | Separate from mandatory metadata Lakehouse; deferred analytical expansion | High for support; not in current selected scope |
 | Validation | `pytest==9.1.1`, deterministic captured fixtures | KPI boundaries, retry/replay, malformed records, reconnect and gap behavior | High for version lookup; no tests implemented yet |
 
 Package versions above were read from each project's live PyPI JSON metadata on 2026-10-21, not installed or compatibility-tested. Minimum Python reported: websockets >=3.11, azure-eventhub >=3.9, httpx >=3.8, pytest >=3.10. Resolve a tested lockfile during implementation; latest versions alone do not establish compatibility.

@@ -7,17 +7,18 @@
 
 | Category | Proposed v1 capability | Complexity | Dependency |
 |---|---|---|---|
-| Market selection | Reviewed AI-model allowlist; nested status validation; versioned metadata/outcome mapping | Low–medium | Public discovery and a live sample |
+| Metadata batch | Daily AI-tag discovery into Lakehouse, raw snapshots and published complete versions | Medium | Pagination, scheduled bounded ingestion and metadata validation |
+| Market selection | AI-model eligibility from Lakehouse metadata; nested status validation; versioned market/outcome/asset mapping for WebSocket | Low–medium | Successful metadata batch and a live sample |
 | Capture | Finite manual sessions, raw journal, application heartbeat, bounded reconnect/retry | Medium | Valid watchlist; sink readiness |
 | Trust | Separate quotes/trade observations, invalid-record quarantine, capture IDs, coverage and gap indicators | Medium | Raw envelope and session manifest |
 | Top movers | Rank outcome-level midpoint changes in percentage points across selected windows | Medium | Valid fresh two-sided quotes and sufficient covered history |
 | Activity | Observed trade-message frequency, observed size/notional where available, and spread over time | Medium | Trade fields validated; do not label as complete market turnover |
 | Shocks | Configurable threshold rule with timestamp, before/after context and coverage flags | Medium | Agreed metric, threshold, window and sparse-data behavior |
 | Live view | Selected outcomes, movers, activity, shocks and source/pipeline freshness | Medium | Query layer and explicit refresh target |
-| History | Session/day views from collected periods with coverage and quality counts | Low–medium in KQL; higher with a separate Spark/Power BI route | Retained raw observations; session boundaries |
+| History | Session/day views in Eventhouse/KQL, selected by user; coverage and quality counts | Low–medium | Retained raw observations; session boundaries |
 | Portfolio | Architecture rationale, KPI definitions, reproducible runbook, fixtures, evidence and demo | Medium | At least one verified end-to-end session |
 
-These are proposed scoping categories, not approved requirements. Complexity estimates are qualitative judgments for this project.
+Daily Lakehouse metadata discovery and Eventhouse/KQL history were selected by the user on 2026-10-21. Other categories remain proposed for scoping. Complexity estimates are qualitative judgments for this project.
 
 ## KPI proposals for discussion
 
@@ -34,8 +35,8 @@ These are proposed scoping categories, not approved requirements. Complexity est
 |---|---|---|
 | Replay of captured sessions with stable IDs | Demonstrates recovery and reproducible analytical results | Recommend v1 scope |
 | Full order-book depth reconstruction | Richer liquidity analysis | Defer; top-of-book answers agreed questions with less state |
-| Spark bronze/silver/gold historical path | Demonstrates an additional Fabric data-engineering skill | Ask whether required; do not add purely for architecture fashion |
-| Power BI historical report | Familiar interviewer-facing artifact | Ask whether a separate Power BI deliverable is needed |
+| Spark bronze/silver/gold analytical history | Additional transformation path beyond metadata ingestion | Deferred; metadata Lakehouse is mandatory independently |
+| Power BI historical report | Familiar interviewer-facing artifact | Deferred; user selected KQL history |
 | External news enrichment / ML anomaly detection | More context | Defer; not needed for observational core |
 
 ## Anti-features / exclusions
@@ -46,7 +47,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 
 1. Accept or adjust v1 capability groups and market-selection policy.
 2. Choose windows, shock rule, finite session duration and a measurable live freshness target.
-3. Decide whether historical analysis must include Lakehouse/Spark and/or a separate Power BI report.
+3. Choose daily metadata run time, freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Eventhouse/KQL history and Lakehouse metadata are already selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
 ## Nguồn tham khảo

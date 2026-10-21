@@ -10,21 +10,21 @@
 
 The project is feasible enough to plan a bounded integration spike, but it has not demonstrated an operating stream or cloud pipeline. Public discovery calls confirmed an AI tag and model-related candidates. They also demonstrated that the tag includes unrelated AI-company topics and that event-level `closed=false` can include closed nested markets. A reviewed, versioned market allowlist is necessary.
 
-The smallest proposed Fabric route is a local Python WebSocket collector with a raw journal, a custom Eventstream endpoint, Eventhouse validation/analytics and a Real-Time Dashboard. Historical KQL views can answer session/day questions. A separate OneLake/Spark/Power BI route is an optional learning/output decision, not an assumed requirement. Preserve raw payloads and honest coverage states before building KPI rankings.
+The user selected Eventhouse/KQL for historical analytics and added mandatory daily AI-tag metadata ingestion into Lakehouse. The resulting route is daily REST discovery → Lakehouse raw snapshots and validated market/outcome/asset mapping → collector subscription, followed by Python raw journal → Eventstream → Eventhouse/KQL → live and historical views. A separate Spark/Power BI analytical history path is deferred; the metadata Lakehouse remains required.
 
 ## Key Findings
 
 ### Recommended Stack
 
-See [STACK.md](STACK.md): native WebSocket + HTTP metadata in Python; managed Fabric stream transport; KQL for live metrics; bounded historical work. Exact dependency versions were checked against live package metadata but have not been installed or tested together.
+See [STACK.md](STACK.md): daily Lakehouse metadata batch; native WebSocket + HTTP metadata in Python; managed Fabric stream transport; KQL for live/history. Batch orchestration and collector access to Lakehouse remain implementation decisions. Exact dependency versions were checked against live package metadata but have not been installed or tested together.
 
 ### Expected Features
 
-See [FEATURES.md](FEATURES.md): reviewed watchlist; finite sessions; raw capture and retry/replay; visible gaps/quality; top movers, observed activity and rule-based shocks; live and historical views; portfolio evidence. Windows, shock parameters, freshness target and separate historical tools still require user scoping.
+See [FEATURES.md](FEATURES.md): daily metadata snapshots and valid subscription mapping; reviewed watchlist; finite sessions; raw capture/replay; visible gaps/quality; movers, activity, shocks and portfolio evidence. Windows, shock parameters, live/metadata freshness and batch run time still require user scoping. Historical serving is selected as KQL.
 
 ### Architecture Approach
 
-See [ARCHITECTURE.md](ARCHITECTURE.md): compare Eventhouse-centered serving, a dual live/lake path, and a Lakehouse-centered route with looser freshness. All architecture ADRs remain proposed pending numerical targets and environment verification. Raw/cleaned/serving guarantees need not correspond to three engines.
+See [ARCHITECTURE.md](ARCHITECTURE.md): the user selected Eventhouse-centered analytics plus a mandatory metadata Lakehouse. Comparisons remain for traceability; detailed implementation ADRs await targets and environment verification. Raw/cleaned/serving guarantees need not correspond to three engines.
 
 ### Critical Pitfalls
 
@@ -34,8 +34,8 @@ See [PITFALLS.md](PITFALLS.md): mixed protocol schemas; false trade counts from 
 
 The following dependency groups are suggestions for roadmap creation after requirements approval:
 
-1. **Source and environment feasibility:** reviewed candidates, bounded native capture, event-shape evidence, read-only workspace preflight, explicit acceptance targets. No cloud writes without separate authorization.
-2. **One outcome end to end:** collector envelope/journal → approved Fabric route → query and simple visible live output. Measure latency and consumption before expanding.
+1. **Source and environment feasibility:** daily discovery semantics, reviewed candidates, bounded native capture, event-shape evidence, read-only workspace preflight, explicit acceptance targets. No cloud writes without separate authorization.
+2. **Metadata and one outcome end to end:** daily Lakehouse batch → published complete metadata mapping → collector envelope/journal → approved Fabric route → visible live output. Measure latency/consumption and test failed batch publication before expanding.
 3. **Correctness and recovery:** retry idempotency, quarantine, reconnect coverage and replay evidence before metrics are trusted.
 4. **Analytical questions:** top movers, observed trade activity/spread and configurable shock context with deterministic fixtures.
 5. **History and portfolio:** session/day output, cross-view reconciliation, repeatable runbook, demo evidence and retained exports before trial expiry.
@@ -61,7 +61,11 @@ This is not an approved five-phase roadmap. Final phase count, vertical versus h
 
 ### Gaps to Address
 
-Agree live freshness, windows, session duration, shock rule and historical deliverables. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
+Agree live freshness, daily metadata run time/freshness/failure behavior, windows, session duration and shock rule. Historical serving is selected as Eventhouse/KQL; metadata Lakehouse is required. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
+
+### Data engineering capability readiness
+
+On 2026-10-21, local GSD `capability list --json` and `capability state` report `dataeng` v0.1.0 installed, enabled and active, including design/verify steps, planning/execution contributions and ship gate. Four specialist agent TOML files exist. Its coordinator was inspected at `C:/Users/sanbo/.gsd/capabilities/dataeng/skills/de-coordinator/SKILL.md`. Apply DATA-SPEC before phase planning and evidence-based DATA-VERIFY during verification; do not claim these artifacts or checks exist yet. Inline execution must be disclosed, and inline independent review has degraded independence.
 
 ## Sources
 

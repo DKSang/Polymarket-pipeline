@@ -6,6 +6,9 @@
 | Pitfall | Warning sign | Prevention / recovery | Address when |
 |---|---|---|---|
 | AI tag treated as AI-model allowlist | Hardware/IPO questions included; closed nested markets selected | Review criteria, filter individual market status, version allowlist and metadata; retain exclusions | Source feasibility |
+| Partial daily batch replaces valid metadata | Pagination failure makes markets disappear from subscriptions | Publish completed versions only; retain last complete snapshot and mark failed/stale status | Metadata batch |
+| Market ID passed to WebSocket | Subscription has no expected observations | Persist market/outcome/asset mapping; send outcome asset IDs and retain metadata version per session | Metadata-to-stream integration |
+| Daily discovery assumed current after failures | Collector uses old IDs without warning | Define freshness threshold and explicit stop/degraded behavior; monitor last successful batch | Requirements and operations |
 | SDK and wire schema mixed | `assetId` parser receives `asset_id`, source epoch strings interpreted as SDK datetimes | Pin native protocol boundary; fixtures for arrays, unknown types, optional fields and timestamp units | Source feasibility |
 | Book array order assumed | Spread changes sign or best price is wrong | Use max bid/min ask; validate crossed/empty books before serving | Data correctness |
 | Quote changes counted as trades | Activity rises on order cancels alone | Separate event families and outcome-level observed metrics | KPI implementation |
