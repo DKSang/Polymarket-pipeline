@@ -54,7 +54,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - **Budget**: Dùng Fabric trial; người dùng báo còn hơn 30 ngày (chưa xác minh hạn và mức capacity). Không giả định có ngân sách mua thêm.
 - **Runtime**: Stream chạy thủ công, người chạy truyền thời lượng hữu hạn cho từng phiên; collector tự dừng nhận khi hết thời lượng rồi đóng phiên có kiểm soát. Metadata batch bắt đầu lúc 07:15 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:15 UTC, và mục tiêu xong trước 08:15 giờ tuyệt đối (mục tiêu, chưa là cam kết cho tới khi đo). Batch lỗi thì dùng bản thành công gần nhất, cảnh báo thời điểm cập nhật và kiểm tra lại market trước đăng ký; lịch cloud chưa được triển khai.
 - **Level**: Độ phức tạp phải hợp với trình độ fresher — ưu tiên rõ ràng, kiểm chứng được hơn là phức tạp.
-- **Live freshness**: Người dùng chọn 15–30 giây từ collector receive đến dữ liệu được hiển thị trên dashboard; 30 giây là cận trên mục tiêu. Đo cả ingestion, query và refresh, không chỉ thời gian gửi vào Eventstream. Chưa chốt tỷ lệ đạt/percentile và cách đánh giá lúc lỗi/recovery.
+- **Live freshness**: Người dùng chọn 15–30 giây từ collector receive đến dữ liệu được hiển thị trên dashboard; 30 giây là cận trên mục tiêu. Đo cả ingestion, query và refresh, không chỉ thời gian gửi vào Eventstream. Đạt khi ≥95% mẫu ≤30 giây (người dùng chọn có chủ ý), báo cáo p50/p95/max. Cách đánh giá lúc lỗi/recovery chưa chốt.
 - **Authority**: Kiểm tra tài nguyên chỉ đọc không đồng nghĩa được tạo, triển khai hay chạy job trên cloud; các thao tác đó cần duyệt riêng.
 
 ## Key Decisions
