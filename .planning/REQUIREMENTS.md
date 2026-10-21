@@ -139,20 +139,48 @@ Không tự đưa các tính năng khác vào v2 nếu người dùng chưa yêu
 
 ## Traceability
 
-Chưa có ROADMAP được duyệt. Mỗi ID v1 sẽ được gán đúng một phase chịu trách nhiệm sau khi người dùng duyệt requirements và cấu trúc dự án; không tự gán phase từ nghiên cứu kiến trúc.
+Mapping dưới đây theo roadmap đã được người dùng duyệt ngày 2026-10-21. Mỗi yêu cầu có đúng một phase chịu trách nhiệm nghiệm thu; chưa có phase được thực hiện.
 
-| Category | Requirement IDs | Phase | Status |
-|----------|-----------------|-------|--------|
-| Raw metadata | RAW-01..RAW-03 | Chưa gán | Pending |
-| Watchlist | WATCH-01..WATCH-05 | Chưa gán | Pending |
-| Collection | COLL-01..COLL-05 | Chưa gán | Pending |
-| KPI/ranking | KPI-01..KPI-07 | Chưa gán | Pending |
-| Quality | DQ-01..DQ-05 | Chưa gán | Pending |
-| Views | VIEW-01..VIEW-04 | Chưa gán | Pending |
-| Operation | OPS-01..OPS-04 | Chưa gán | Pending |
-| Evidence | EVID-01..EVID-03 | Chưa gán | Pending |
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| RAW-01 | Phase 2 | Pending |
+| RAW-02 | Phase 2 | Pending |
+| RAW-03 | Phase 2 | Pending |
+| WATCH-01 | Phase 3 | Pending |
+| WATCH-02 | Phase 3 | Pending |
+| WATCH-03 | Phase 3 | Pending |
+| WATCH-04 | Phase 3 | Pending |
+| WATCH-05 | Phase 3 | Pending |
+| COLL-01 | Phase 4 | Pending |
+| COLL-02 | Phase 4 | Pending |
+| COLL-03 | Phase 4 | Pending |
+| COLL-04 | Phase 4 | Pending |
+| COLL-05 | Phase 4 | Pending |
+| KPI-01 | Phase 5 | Pending |
+| KPI-02 | Phase 5 | Pending |
+| KPI-03 | Phase 5 | Pending |
+| KPI-04 | Phase 5 | Pending |
+| KPI-05 | Phase 5 | Pending |
+| KPI-06 | Phase 5 | Pending |
+| KPI-07 | Phase 4 | Pending |
+| DQ-01 | Phase 4 | Pending |
+| DQ-02 | Phase 5 | Pending |
+| DQ-03 | Phase 5 | Pending |
+| DQ-04 | Phase 5 | Pending |
+| DQ-05 | Phase 6 | Pending |
+| VIEW-01 | Phase 6 | Pending |
+| VIEW-02 | Phase 6 | Pending |
+| VIEW-03 | Phase 6 | Pending |
+| VIEW-04 | Phase 6 | Pending |
+| OPS-01 | Phase 5 | Pending |
+| OPS-02 | Phase 7 | Pending |
+| OPS-03 | Phase 6 | Pending |
+| OPS-04 | Phase 1 | Pending |
+| EVID-01 | Phase 7 | Pending |
+| EVID-02 | Phase 7 | Pending |
+| EVID-03 | Phase 7 | Pending |
 
-**Coverage:** 36 yêu cầu v1; 0 đã gán phase; 36 chờ bước roadmap. Không có yêu cầu được đánh dấu Complete.
+**Coverage:** 36 yêu cầu v1; 36 đã gán phase; 0 chưa gán; 0 trùng ownership. Mapping đã được duyệt; mọi yêu cầu vẫn Pending đến khi được triển khai và kiểm chứng.
 
 ## Knowledge Sources
 
@@ -166,4 +194,4 @@ Nguồn yêu cầu chính là các quyết định người dùng đã xác nh�
 Upstream SDK/API và Fabric item hiện có sẽ được đánh giá tái sử dụng trước custom code; chưa chọn package version hoặc runtime từ tài liệu yêu cầu này. Tài liệu nguồn kỹ thuật phải được xác minh lại khi trở thành dependency triển khai.
 
 ---
-*Last updated: 2026-10-21 after explicit user approval of all 36 v1 requirements. Roadmap creation is next; planning decisions remain open as listed above.*
+*Last updated: 2026-10-21 after user approval of the seven-phase Horizontal Layers roadmap and requirement traceability. Planning decisions remain open as listed above.*
