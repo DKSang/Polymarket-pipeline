@@ -7,7 +7,7 @@
 
 | Category | Proposed v1 capability | Complexity | Dependency |
 |---|---|---|---|
-| Metadata batch | Daily AI-tag discovery into Lakehouse, raw snapshots and published complete versions | Medium | Pagination, scheduled bounded ingestion and metadata validation |
+| Metadata batch | AI-tag discovery into Lakehouse starting daily at 07:00 Asia/Saigon (00:00 UTC), raw snapshots and published complete versions | Medium | Pagination, scheduled bounded ingestion and metadata validation |
 | Market selection | AI-model eligibility from Lakehouse metadata; nested status validation; versioned market/outcome/asset mapping for WebSocket | Low–medium | Successful metadata batch and a live sample |
 | Capture | Finite manual sessions, raw journal, application heartbeat, bounded reconnect/retry | Medium | Valid watchlist; sink readiness |
 | Trust | Separate quotes/trade observations, invalid-record quarantine, capture IDs, coverage and gap indicators | Medium | Raw envelope and session manifest |
@@ -47,7 +47,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 
 1. Accept or adjust v1 capability groups and market-selection policy.
 2. Choose windows, shock rule, finite session duration and a measurable live freshness target.
-3. Choose daily metadata run time, freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Eventhouse/KQL history and Lakehouse metadata are already selected.
+3. Choose metadata completion/freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Daily start time is selected as 07:00 Asia/Saigon (00:00 UTC); Eventhouse/KQL history and Lakehouse metadata are already selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
 ## Nguồn tham khảo

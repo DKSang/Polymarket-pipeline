@@ -21,7 +21,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - [ ] Trả lời câu hỏi **Sôi động hay không**: tần suất giao dịch, khối lượng và spread theo thời gian, phân biệt market đang được giao dịch thật với market chỉ có quote.
 - [ ] Trả lời câu hỏi **Cú sốc giá**: phát hiện bước nhảy giá bất thường và cho xem spread/giao dịch phản ứng ra sao sau đó. Định nghĩa "cú sốc" (ngưỡng, cửa sổ) cần chốt ở requirements.
 - [ ] Xác định tập market AI (về các model) cần theo dõi và cách cập nhật tập này; tiêu chí chọn cần chốt ở research/requirements.
-- [ ] Ingest batch metadata Polymarket có tag AI hằng ngày vào Lakehouse; lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
+- [ ] Ingest batch metadata Polymarket có tag AI vào Lakehouse lúc 07:00 hằng ngày, múi giờ Asia/Saigon (UTC+7); lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
 - [ ] Dùng Eventhouse/KQL cho phân tích live và báo cáo lịch sử theo phiên/ngày; Lakehouse là nơi lưu metadata discovery bắt buộc.
 - [ ] Dashboard live và báo cáo lịch sử theo ngày dựng từ dữ liệu đã thu trong các phiên.
 - [ ] Chạy theo phiên thủ công, hữu hạn, ngắn; xử lý mất kết nối và cho thấy khoảng trống dữ liệu thay vì che đi.
@@ -49,7 +49,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 
 - **Platform**: Microsoft Fabric bắt buộc — mục tiêu portfolio.
 - **Budget**: Dùng Fabric trial; người dùng báo còn hơn 30 ngày (chưa xác minh hạn và mức capacity). Không giả định có ngân sách mua thêm.
-- **Runtime**: Stream chạy thủ công theo phiên ngắn; metadata có batch hằng ngày. Giờ chạy batch, thời lượng phiên, và chính sách khi metadata cũ/lỗi còn mở.
+- **Runtime**: Stream chạy thủ công theo phiên ngắn; metadata batch được yêu cầu bắt đầu lúc 07:00 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:00 UTC. Đây là lịch bắt đầu, không phải cam kết giờ hoàn tất. Thời lượng phiên và chính sách khi metadata cũ/lỗi còn mở; lịch cloud chưa được triển khai.
 - **Level**: Độ phức tạp phải hợp với trình độ fresher — ưu tiên rõ ràng, kiểm chứng được hơn là phức tạp.
 - **Authority**: Kiểm tra tài nguyên chỉ đọc không đồng nghĩa được tạo, triển khai hay chạy job trên cloud; các thao tác đó cần duyệt riêng.
 
@@ -65,6 +65,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Làm lại từ đầu, không dùng bản planning cũ làm baseline | Người dùng chọn khi được hỏi | — Pending |
 | Eventhouse/KQL phục vụ cả live và lịch sử | Người dùng chọn phương án 1 sau research | — Pending |
 | Lakehouse metadata + batch discovery hằng ngày trước đăng ký WebSocket | Người dùng yêu cầu danh sách market lấy từ metadata có tag AI | — Pending |
+| Batch metadata bắt đầu lúc 07:00 hằng ngày, Asia/Saigon (UTC+7) | Người dùng chọn 7 giờ sáng; giờ địa phương theo ngữ cảnh phiên | — Pending |
 
 ## Open Questions and Assumptions
 
@@ -94,4 +95,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-21 after user selected KQL history and required daily Lakehouse metadata discovery*
+*Last updated: 2026-10-21 after user selected the daily metadata batch start time of 07:00 Asia/Saigon*

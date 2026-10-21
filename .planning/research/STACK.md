@@ -13,7 +13,7 @@
 | WebSocket | `websockets==17.3` | Async receive loop; implement documented application heartbeat explicitly | High for version lookup; integration untested |
 | Fabric producer | `azure-eventhub==5.15.1` | Eventstream custom endpoint supports Event Hubs SDK/AMQP; avoid a separately provisioned broker for v1 | High for documented endpoint support; target auth/network untested |
 | Metadata storage | Fabric Lakehouse, daily raw snapshots + validated market/outcome/asset mapping | User-required discovery source for WebSocket subscriptions; publish complete metadata versions | User requirement confirmed; persistence/read path untested |
-| Metadata batch orchestration | Scheduled bounded Fabric notebook or pipeline + notebook | Daily cadence selected; exact mechanism to compare during phase design | Medium; workspace/schedule unverified |
+| Metadata batch orchestration | Scheduled bounded Fabric notebook or pipeline + notebook | Daily start at 07:00 Asia/Saigon (00:00 UTC) selected; exact mechanism to compare during phase design | Medium; workspace/schedule unverified |
 | Raw landing / live query | Fabric Eventstream → Eventhouse / KQL database | Preserve a stable envelope, query validated observations and session health | High for capabilities; latency/cost unknown |
 | Live serving | Fabric Real-Time Dashboard | Native Eventhouse queries, refresh controls and visual refresh timestamps | High for capability; freshness target pending |
 | Historical serving | Session/day aggregates in Eventhouse/KQL | User selected this route on 2026-10-21 | Selected; acceptance targets pending |

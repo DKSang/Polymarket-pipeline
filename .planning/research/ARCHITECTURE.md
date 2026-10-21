@@ -5,7 +5,7 @@
 
 ## Drivers and unresolved constraints
 
-Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription. Numerical live freshness SLO, batch run time, session duration and capacity headroom are **Open**. No benchmark or generic wiki decision is treated as project approval.
+Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription, starting at 07:00 Asia/Saigon (UTC+7; 00:00 UTC). Numerical live freshness SLO, batch completion deadline, session duration and capacity headroom are **Open**. The cloud schedule has not been deployed. No benchmark or generic wiki decision is treated as project approval.
 
 ## Candidate component flow
 
@@ -68,7 +68,7 @@ Raw, cleaned and serving are data guarantees, not a requirement to deploy three 
 
 ## Metadata discovery dependency — added after user feedback
 
-**User requirement:** Daily metadata with AI tag must land in Lakehouse and supply the streaming subscription. The following safeguards are design proposals, not yet an approved data contract:
+**User requirement:** Daily metadata with AI tag must land in Lakehouse and supply the streaming subscription. The batch starts at 07:00 Asia/Saigon (00:00 UTC); successful publication follows completion and validation, not merely the scheduled start. The following safeguards are design proposals, not yet an approved data contract:
 
 1. Fetch all relevant pages with recorded run ID, request scope/cursor and fetch time; retain source responses as raw metadata snapshots.
 2. Validate nested market status and one-to-many market/outcome/asset mapping. Retain AI-tag candidates even when not eligible for the narrower model watchlist.

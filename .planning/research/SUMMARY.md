@@ -20,7 +20,7 @@ See [STACK.md](STACK.md): daily Lakehouse metadata batch; native WebSocket + HTT
 
 ### Expected Features
 
-See [FEATURES.md](FEATURES.md): daily metadata snapshots and valid subscription mapping; reviewed watchlist; finite sessions; raw capture/replay; visible gaps/quality; movers, activity, shocks and portfolio evidence. Windows, shock parameters, live/metadata freshness and batch run time still require user scoping. Historical serving is selected as KQL.
+See [FEATURES.md](FEATURES.md): daily metadata snapshots and valid subscription mapping; reviewed watchlist; finite sessions; raw capture/replay; visible gaps/quality; movers, activity, shocks and portfolio evidence. Metadata batch start time is selected as 07:00 Asia/Saigon (00:00 UTC); the schedule is not deployed. Windows, shock parameters, live/metadata freshness and batch completion deadline still require user scoping. Historical serving is selected as KQL.
 
 ### Architecture Approach
 
@@ -61,7 +61,7 @@ This is not an approved five-phase roadmap. Final phase count, vertical versus h
 
 ### Gaps to Address
 
-Agree live freshness, daily metadata run time/freshness/failure behavior, windows, session duration and shock rule. Historical serving is selected as Eventhouse/KQL; metadata Lakehouse is required. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
+Agree live freshness, metadata completion/freshness/failure behavior, windows, session duration and shock rule. Daily metadata start is selected as 07:00 Asia/Saigon (00:00 UTC); historical serving is Eventhouse/KQL and metadata Lakehouse is required. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
 
 ### Data engineering capability readiness
 
