@@ -19,7 +19,7 @@ Help a researcher identify and explain price movements using traceable observati
 - [ ] Answer four analytical questions: which watched AI markets moved most; which outcome drove each movement and in which direction; how spread and quote-change activity evolved; and what observed history and data quality support the result.
 - [ ] Ingest raw metadata for all open markets in the AI-tag candidate set. Do not apply the analytical 30-market limit or direct-AI selection policy to this raw ingestion scope. Select the watchlist of up to 30 AI markets downstream during transformation; the exact selection implementation is deferred to that stage.
 - [ ] Maintain up to 30 watched markets initially, allowing later expansion. Include only direct AI events such as model/product releases, benchmarks and AI policy; tags/keywords identify candidates, not final eligibility.
-- [ ] Review the watchlist daily. Retain existing eligible markets and fill vacancies, including those created when a market closes or stops trading. Do not replace a market solely because its expected end date passed.
+- [ ] Review and replenish the watchlist on the first manual session start of each day in Asia/Saigon. Retain existing eligible markets and fill vacancies, including those created when a market closes or stops trading. Later starts that day reuse the selected membership; handling a member that stops trading within the day remains a separate lifecycle decision. Do not replace a market solely because its expected end date passed.
 - [ ] Automatically prioritize eligible replacement candidates by trading volume over the most recent 24 hours. The exact source field, tie-breaking and eligibility automation remain to be researched.
 - [ ] Keep the watchlist market-based, with outcome-level calculations and one ranked row per market/window. Preserve historical observations when membership changes and record the observation scope over time.
 - [ ] Calculate mid-price as (best_bid + best_ask) / 2 and spread as best_ask - best_bid. Calculate signed price change as mid(T) - mid(T-W), with W = 5, 15 or 60 minutes; rank by the greatest absolute change among eligible outcomes in each market.
@@ -81,7 +81,7 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 - **Runtime:** Manual collection, initially a few minutes for testing. Longer collection begins after the complete data flow works; exact durations and schedules remain open.
 - **Performance:** p95 <= 60 seconds from collector receipt to displayed result is a target requiring measured verification, not an established result.
 - **Evidence:** Short sessions cannot establish live 60-minute-window correctness or sustained freshness. Use appropriate deterministic fixtures early and later measured sessions, subject to agreed verification scope.
-- **Knowledge:** Shared Hub `C:/Users/sanbo/Code/fabric-agent-knowledge` is read-only by default. On 2026-10-21 the user explicitly authorized the karpathy-llm-wiki Ingest workflow for sources gathered in this research, including raw snapshots, compiled articles, index and ingest log. This scoped exception does not authorize unrelated edits, changes to installed skills or automatic future ingestion. Consult index and concept/synonym searches before technical decisions; verify time-sensitive API/SDK behavior against current official sources when it becomes a dependency.
+- **Knowledge:** Shared Hub `C:/Users/sanbo/Code/fabric-agent-knowledge` is read-only under the replacement AGENTS instructions. Earlier on 2026-10-21 the user authorized a completed, scoped ingestion operation; that historical authorization does not authorize new Hub writes. Collect project evidence locally and keep future Wiki operations read-only unless scope is explicitly clarified. Consult index and concept/synonym searches before technical decisions; verify time-sensitive API/SDK behavior against current official sources when it becomes a dependency.
 - **Authority:** Resource inspection does not authorize deployment, mutation or job execution. Do not inherit old resource ownership or prior approvals.
 - **Delivery:** Interactive GSD initialization; present significant assumptions and decisions for confirmation. No claims of measured user impact without actual measurement.
 
@@ -101,7 +101,8 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 
 ## Open Questions and Assumptions
 
-- Exact candidate eligibility/classification, 24-hour volume field and units, ties, missing volume handling, daily timezone/cutoff and watchlist versioning need explicit definitions. No silent replacement of these gaps with a custom business contract.
+- Daily review timing is confirmed: first manual session start per Asia/Saigon day. Exact candidate eligibility/classification, 24-hour volume field and units, ties, missing volume handling, daily-brief boundary and watchlist versioning still need explicit definitions. No silent replacement of these gaps with a custom business contract.
+- Intra-day lifecycle proposal, not yet approved: validate selected members before each session, monitor documented resolution events and periodically reconcile metadata during collection; stop live calculation/subscription for a confirmed non-trading member, preserve its history, and defer replenishment until the next daily review. Do not treat lack of quote messages alone as proof of closure. The exact metadata polling cadence and closed-market subscription behavior still require verification.
 - The user has now explicitly confirmed the raw scope: all open markets in the AI-tag candidate set; selection of up to 30 watched AI markets belongs downstream in transformation. Exact source tag identity and mapping remain to be verified before implementation.
 - How long to retain raw/derived evidence, and how to preserve deliverables before trial expiry, remain open within the existing-resource budget.
 - Complete quote-state reconstruction, timestamp behavior, duplicate/out-of-order handling and continuity evidence require source research and tests.
@@ -119,6 +120,8 @@ Workflow preferences are saved in `.planning/config.json`: interactive, standard
 The user-authorized Wiki ingestion created seven source-scoped articles from twelve official snapshots. This updates the earlier Query-only boundary for that explicit operation; current external behavior still needs rechecking when selected as an implementation dependency.
 
 ### Articles Consulted
+
+Lifecycle clarification consulted current official pages on 2026-10-21: https://docs.polymarket.com/concepts/resolution describes resolution rules and proposal/challenge stages; https://docs.polymarket.com/api-reference/wss/market documents market_resolved (requiring custom_feature_enabled) and subscription updates. A real-world announcement does not establish the timing of the platform's trading/closure/resolution states. The pages do not establish that subscribing to every already closed asset is guaranteed to succeed, fail, or merely stay silent; no runtime test was performed.
 
 The following exact local Wiki articles were consulted during discovery/initialization. They provide conceptual guidance with the evidence boundaries stated in each article; their educational examples are not current API contracts.
 
