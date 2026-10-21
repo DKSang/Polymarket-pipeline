@@ -13,7 +13,7 @@ Vì thứ tự theo giai đoạn, luồng xuyên suốt đầu tiên chỉ chạ
 
 ## Phases
 
-- [ ] **Phase 1: Inception** — Chốt owner, KPI và SLO bằng con số.
+- [x] **Phase 1: Inception** — Chốt owner, KPI và SLO bằng con số.
 - [ ] **Phase 2: Design** — Source inventory, data contract và quyết định kiến trúc trước khi viết code.
 - [ ] **Phase 3: Build — Ingest** — Metadata Lakehouse, collector và đường stream tới Eventhouse chạy được trên một phiên thật.
 - [ ] **Phase 4: Build — Transform và KPI** — Làm sạch, kiểm soát chất lượng, replay và các KPI movers, spread, activity, shocks.
@@ -146,7 +146,7 @@ Execution order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8, sau khi requiremen
 
 | Phase | Plans Complete | Status | Completed |
 |---|---|---|---|
-| 1. Inception | 0/TBD | Not started | - |
+| 1. Inception | 0/0 (documents only; plan and execute skipped by user) | Complete, accepted-risk | 2026-10-22 |
 | 2. Design | 0/TBD | Not started | - |
 | 3. Build — Ingest | 0/TBD | Not started | - |
 | 4. Build — Transform và KPI | 0/TBD | Not started | - |

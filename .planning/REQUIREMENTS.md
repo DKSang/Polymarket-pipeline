@@ -10,8 +10,8 @@ Cấu trúc theo quy trình triển khai Inception → Design → Build → Oper
 
 ### Inception
 
-- [ ] **INCP-01**: Data product có owner được ghi tên, kèm người bảo trì và đầu mối escalate, lưu trong repo.
-- [ ] **INCP-02**: KPI và SLO được ghi bằng con số kèm cách đo: tỷ lệ đạt và điểm đo của mục tiêu 15–30 giây (người dùng chọn 2026-10-21: đạt khi ≥95% mẫu ≤30 giây, báo cáo p50/p95/max), hạn hoàn tất batch (bắt đầu 07:15, xong trước 08:15 giờ tuyệt đối Asia/Saigon), metadata fallback không đặt tuổi tối đa (lựa chọn có chủ ý của người dùng, giảm thiểu bằng cảnh báo lỗi batch), cách đánh giá lúc lỗi/recovery (chưa chốt). Mục chưa được người dùng chốt ghi rõ là chưa chốt, không tự điền.
+- [x] **INCP-01**: Data product có owner được ghi tên, kèm người bảo trì và đầu mối escalate, lưu trong repo.
+- [x] **INCP-02**: KPI và SLO được ghi bằng con số kèm cách đo: tỷ lệ đạt và điểm đo của mục tiêu 15–30 giây (người dùng chọn 2026-10-21: đạt khi ≥95% mẫu ≤30 giây, báo cáo p50/p95/max), hạn hoàn tất batch (bắt đầu 07:15, xong trước 08:15 giờ tuyệt đối Asia/Saigon), metadata fallback không đặt tuổi tối đa (lựa chọn có chủ ý của người dùng, giảm thiểu bằng cảnh báo lỗi batch), cách đánh giá lúc lỗi/recovery (chưa chốt). Mục chưa được người dùng chốt ghi rõ là chưa chốt, không tự điền.
 
 ### Design
 
@@ -100,8 +100,8 @@ VIEW-01 là mục tiêu người dùng chọn; người dùng đã chọn có ch
 
 | Requirement | Phase | Status |
 |---|---|---|
-| INCP-01 | Phase 1 | Pending |
-| INCP-02 | Phase 1 | Pending |
+| INCP-01 | Phase 1 | Complete (accepted-risk, 2026-10-22) |
+| INCP-02 | Phase 1 | Complete (accepted-risk; O-01 chưa chốt, 2026-10-22) |
 | DSGN-01 | Phase 2 | Pending |
 | DSGN-02 | Phase 2 | Pending |
 | DSGN-03 | Phase 2 | Pending |
