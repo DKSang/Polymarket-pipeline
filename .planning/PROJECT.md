@@ -17,9 +17,9 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 ### Active
 
 - [ ] Nhận dữ liệu stream thật từ Polymarket (kênh streaming của nguồn; cơ chế cụ thể cần xác minh khi research) cho các market AI về model.
-- [ ] Trả lời câu hỏi **Top movers**: trong các cửa sổ thời gian ngắn (ứng viên 5/15/60 phút), market/outcome nào đổi xác suất nhiều nhất và theo hướng nào.
+- [ ] Trả lời câu hỏi **Top movers**: xếp hạng outcome theo độ lớn thay đổi midpoint trong các cửa sổ 5/15/60 phút, hiển thị mức thay đổi theo điểm phần trăm và hướng tăng/giảm. Cửa sổ chưa đủ lịch sử hiển thị "chưa đủ dữ liệu".
 - [ ] Trả lời câu hỏi **Sôi động hay không**: tần suất giao dịch, khối lượng và spread theo thời gian, phân biệt market đang được giao dịch thật với market chỉ có quote.
-- [ ] Trả lời câu hỏi **Cú sốc giá**: phát hiện bước nhảy giá bất thường và cho xem spread/giao dịch phản ứng ra sao sau đó. Định nghĩa "cú sốc" (ngưỡng, cửa sổ) cần chốt ở requirements.
+- [ ] Trả lời câu hỏi **Cú sốc giá**: phát hiện midpoint tăng hoặc giảm ít nhất 5 điểm phần trăm trong 5 phút, cho phép chỉnh ngưỡng/cửa sổ bằng cấu hình; cho xem spread/giao dịch quan sát được quanh sự kiện. Chỉ tính khi có dữ liệu hợp lệ và đủ lịch sử.
 - [ ] Xác định tập market AI (về các model) cần theo dõi và cách cập nhật tập này; tiêu chí chọn cần chốt ở research/requirements.
 - [ ] Ingest batch metadata Polymarket có tag AI vào Lakehouse lúc 07:00 hằng ngày, múi giờ Asia/Saigon (UTC+7); lưu snapshot và ánh xạ market/outcome/asset ID để cấp danh sách đăng ký cho collector WebSocket.
 - [ ] Dùng Eventhouse/KQL cho phân tích live và báo cáo lịch sử theo phiên/ngày; Lakehouse là nơi lưu metadata discovery bắt buộc.
@@ -71,11 +71,13 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Batch metadata bắt đầu lúc 07:00 hằng ngày, Asia/Saigon (UTC+7) | Người dùng chọn 7 giờ sáng; giờ địa phương theo ngữ cảnh phiên | — Pending |
 | Dashboard cập nhật trong 15–30 giây từ collector receive | Người dùng chọn sau khi được hỏi mục tiêu độ trễ; cần đo kiểm end-to-end | — Pending |
 | Thời lượng stream được truyền khi chạy từng phiên | Người dùng chọn phương án 3; không cố định 30 hay 90 phút | — Pending |
+| Top movers dùng cửa sổ 5/15/60 phút; thiếu lịch sử hiển thị chưa đủ dữ liệu | Người dùng đồng ý cả ba cửa sổ và hành vi khi phiên ngắn | — Pending |
+| Cú sốc: midpoint đổi ít nhất 5 điểm phần trăm trong 5 phút; cho phép cấu hình | Người dùng đồng ý quy tắc khởi đầu; đây là định nghĩa portfolio, chưa phải ngưỡng thống kê đã kiểm chứng | — Pending |
 
 ## Open Questions and Assumptions
 
 - Discovery tag AI được làm mới bằng batch hằng ngày trong Lakehouse; tiêu chí chọn market AI-model từ tập ứng viên vẫn cần chốt. Không tự mở rộng sang IPO/hardware chỉ vì chung tag AI.
-- Định nghĩa "cú sốc giá", cửa sổ thời gian, ngưỡng, xử lý market ít giao dịch chưa được chốt.
+- Đã chốt top movers 5/15/60 phút và shock midpoint >=5 điểm phần trăm trong 5 phút (cả tăng/giảm), cấu hình được. Không coi ngưỡng này là bằng chứng bất thường thống kê. Chi tiết xử lý quote cũ, gap, market ít giao dịch và gộp các lần vượt ngưỡng còn cần thiết kế.
 - Đã xác minh tài liệu về kênh market WebSocket và discovery; rate, lateness, delivery/reconnect thực tế chưa đo. WebSocket đăng ký bằng outcome asset ID, không phải Gamma market ID.
 - Đã chọn Lakehouse cho metadata và Eventhouse/KQL cho analytics. Cơ chế chạy batch, cách collector đọc metadata và chi tiết Fabric transport còn cần thiết kế/kiểm chứng.
 - Batch chỉ công bố version hoàn chỉnh sau khi phân trang/kiểm tra thành công; chính sách dùng snapshot cũ hoặc dừng khi batch thất bại chưa được người dùng chọn.
@@ -100,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-21 after user selected a runtime duration parameter for each streaming session*
+*Last updated: 2026-10-21 after user approved mover windows and the configurable initial shock rule*

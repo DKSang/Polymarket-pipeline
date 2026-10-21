@@ -11,9 +11,9 @@
 | Market selection | AI-model eligibility from Lakehouse metadata; nested status validation; versioned market/outcome/asset mapping for WebSocket | Low–medium | Successful metadata batch and a live sample |
 | Capture | User-supplied finite duration per manual session, automatic stop receiving at expiry, controlled shutdown, raw journal, heartbeat, bounded reconnect/retry | Medium | Valid watchlist; sink readiness; validated duration parameter |
 | Trust | Separate quotes/trade observations, invalid-record quarantine, capture IDs, coverage and gap indicators | Medium | Raw envelope and session manifest |
-| Top movers | Rank outcome-level midpoint changes in percentage points across selected windows | Medium | Valid fresh two-sided quotes and sufficient covered history |
+| Top movers | Rank outcome-level midpoint changes in percentage points over approved 5/15/60-minute windows; show insufficient-history state | Medium | Valid fresh two-sided quotes and sufficient covered history |
 | Activity | Observed trade-message frequency, observed size/notional where available, and spread over time | Medium | Trade fields validated; do not label as complete market turnover |
-| Shocks | Configurable threshold rule with timestamp, before/after context and coverage flags | Medium | Agreed metric, threshold, window and sparse-data behavior |
+| Shocks | Approved initial rule: absolute midpoint change >=5 percentage points in 5 minutes; configurable threshold/window; timestamp and reaction context | Medium | Valid two-sided quotes, adequate history and coverage flags |
 | Live view | Selected outcomes, movers, activity, shocks and freshness; user-selected 15–30 seconds from collector receive to visible dashboard update | Medium | Query/ingestion/refresh budget and end-to-end measurement against the 30-second upper target |
 | History | Session/day views in Eventhouse/KQL, selected by user; coverage and quality counts | Low–medium | Retained raw observations; session boundaries |
 | Portfolio | Architecture rationale, KPI definitions, reproducible runbook, fixtures, evidence and demo | Medium | At least one verified end-to-end session |
@@ -23,10 +23,10 @@ Daily Lakehouse metadata discovery and Eventhouse/KQL history were selected by t
 ## KPI proposals for discussion
 
 - **Price basis:** `(best_bid + best_ask) / 2` only with valid two-sided quotes. Keep last observed trade price separately. A quote-derived price is a market proxy, not a calibrated forecast.
-- **Movement:** `100 * (midpoint_now - midpoint_baseline)` percentage points; show direction and rank by absolute movement. Candidate windows remain 5/15/60 minutes. Mark warming up when the session lacks a baseline; never fill across a disconnect silently.
+- **Movement:** `100 * (midpoint_now - midpoint_baseline)` percentage points; show direction and rank by absolute movement. User approved 5/15/60-minute windows and insufficient-history states. Never fill across a disconnect silently.
 - **Activity:** report observed trade messages per covered minute, observed shares and `sum(price * size)` when size exists. Missing size is unknown, not zero. Market-level totals across outcomes require a proven counting convention; default to outcome-level measures.
 - **Spread:** `100 * (ask - bid)` percentage points with missing/crossed/stale state visible. Use maximum bid and minimum ask rather than trusting array order.
-- **Shock:** simple rule rather than ML; candidate discussion value is at least 5 percentage points within 5 minutes. This is a tunable portfolio hypothesis, not a validated anomaly threshold. Suppress or mark signals with inadequate coverage; post-shock context may remain pending at session end.
+- **Shock:** user approved a simple initial rule, absolute midpoint change >=5 percentage points within 5 minutes, with threshold/window configurable. Includes both rises and falls (for example 40% → 45% or 40% → 35%). This is a portfolio definition, not a validated statistical anomaly threshold. Suppress or mark signals with inadequate coverage; post-shock context may remain pending at session end. Exact baseline sampling and repeated-alert grouping are phase-design details.
 - **Freshness:** distinguish source event age, collector receive age, sink lag and dashboard refresh time. A quiet market can have old quotes with a healthy connection.
 
 ## Optional differentiators
@@ -46,7 +46,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 ## Decisions still needed
 
 1. Accept or adjust v1 capability groups and market-selection policy.
-2. Choose windows and shock rule. Session duration is supplied by the operator at launch, with a finite automatic stop; no fixed 30/90-minute duration was selected. Live freshness is 15–30 seconds from collector receive to visible dashboard update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
+2. Windows (5/15/60 minutes) and the configurable shock rule (absolute midpoint change >=5 percentage points in 5 minutes) are approved. Session duration is supplied at launch, with a finite automatic stop. Live freshness is 15–30 seconds from collector receive to visible update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
 3. Choose metadata completion/freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Daily start time is selected as 07:00 Asia/Saigon (00:00 UTC); Eventhouse/KQL history and Lakehouse metadata are already selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
