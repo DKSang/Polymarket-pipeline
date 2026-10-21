@@ -75,6 +75,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Top movers dùng cửa sổ 5/15/60 phút; thiếu lịch sử hiển thị chưa đủ dữ liệu | Người dùng đồng ý cả ba cửa sổ và hành vi khi phiên ngắn | — Pending |
 | Cú sốc: midpoint đổi ít nhất 5 điểm phần trăm trong 5 phút; cho phép cấu hình | Người dùng đồng ý quy tắc khởi đầu; đây là định nghĩa portfolio, chưa phải ngưỡng thống kê đã kiểm chứng | — Pending |
 | Batch metadata lỗi: dùng bản thành công gần nhất, cảnh báo thời điểm cập nhật, kiểm tra lại market trước subscription | Người dùng chọn tiếp tục phiên với fallback có kiểm tra | — Pending |
+| Roadmap theo quy trình triển khai 7 giai đoạn, Build tách đôi thành 8 phase | Người dùng chọn chia theo tài liệu quy trình ngày 2026-10-21, thay thế lựa chọn vertical MVP trước đó; thêm 10 yêu cầu tối thiểu cho các giai đoạn còn trống | — Pending |
 
 ## Open Questions and Assumptions
 
@@ -104,4 +105,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-21 after user selected last-successful-metadata fallback with warning and market revalidation*
+*Last updated: 2026-10-21 after user chose to split the roadmap by the 7-stage delivery process (8 phases)*
