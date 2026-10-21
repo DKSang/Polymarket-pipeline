@@ -26,6 +26,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - [ ] Dashboard live và báo cáo lịch sử theo ngày dựng từ dữ liệu đã thu trong các phiên.
 - [ ] Dashboard phản ánh dữ liệu mới trong khoảng mục tiêu 15–30 giây từ lúc collector nhận dữ liệu; dùng 30 giây làm ngưỡng kiểm chứng, chưa có kết quả đo thực tế.
 - [ ] Chạy theo phiên thủ công, hữu hạn, ngắn; xử lý mất kết nối và cho thấy khoảng trống dữ liệu thay vì che đi.
+- [ ] Người chạy truyền thời lượng hữu hạn khi bắt đầu mỗi phiên stream; collector tự dừng nhận khi hết thời lượng và hoàn tất quy trình đóng phiên có kiểm soát.
 - [ ] Có bằng chứng portfolio tái lập được: code, tài liệu thiết kế, định nghĩa KPI, hướng dẫn chạy, kết quả kiểm thử và demo.
 
 ### Out of Scope
@@ -50,7 +51,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 
 - **Platform**: Microsoft Fabric bắt buộc — mục tiêu portfolio.
 - **Budget**: Dùng Fabric trial; người dùng báo còn hơn 30 ngày (chưa xác minh hạn và mức capacity). Không giả định có ngân sách mua thêm.
-- **Runtime**: Stream chạy thủ công theo phiên ngắn; metadata batch được yêu cầu bắt đầu lúc 07:00 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:00 UTC. Đây là lịch bắt đầu, không phải cam kết giờ hoàn tất. Thời lượng phiên và chính sách khi metadata cũ/lỗi còn mở; lịch cloud chưa được triển khai.
+- **Runtime**: Stream chạy thủ công, người chạy truyền thời lượng hữu hạn cho từng phiên; collector tự dừng nhận khi hết thời lượng rồi đóng phiên có kiểm soát. Metadata batch bắt đầu lúc 07:00 hằng ngày theo Asia/Saigon (UTC+7), tương đương 00:00 UTC. Đây là lịch bắt đầu, không phải cam kết giờ hoàn tất. Chính sách khi metadata cũ/lỗi còn mở; lịch cloud chưa được triển khai.
 - **Level**: Độ phức tạp phải hợp với trình độ fresher — ưu tiên rõ ràng, kiểm chứng được hơn là phức tạp.
 - **Live freshness**: Người dùng chọn 15–30 giây từ collector receive đến dữ liệu được hiển thị trên dashboard; 30 giây là cận trên mục tiêu. Đo cả ingestion, query và refresh, không chỉ thời gian gửi vào Eventstream. Chưa chốt tỷ lệ đạt/percentile và cách đánh giá lúc lỗi/recovery.
 - **Authority**: Kiểm tra tài nguyên chỉ đọc không đồng nghĩa được tạo, triển khai hay chạy job trên cloud; các thao tác đó cần duyệt riêng.
@@ -69,6 +70,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 | Lakehouse metadata + batch discovery hằng ngày trước đăng ký WebSocket | Người dùng yêu cầu danh sách market lấy từ metadata có tag AI | — Pending |
 | Batch metadata bắt đầu lúc 07:00 hằng ngày, Asia/Saigon (UTC+7) | Người dùng chọn 7 giờ sáng; giờ địa phương theo ngữ cảnh phiên | — Pending |
 | Dashboard cập nhật trong 15–30 giây từ collector receive | Người dùng chọn sau khi được hỏi mục tiêu độ trễ; cần đo kiểm end-to-end | — Pending |
+| Thời lượng stream được truyền khi chạy từng phiên | Người dùng chọn phương án 3; không cố định 30 hay 90 phút | — Pending |
 
 ## Open Questions and Assumptions
 
@@ -77,7 +79,7 @@ Cho thấy một pipeline stream thật chạy được từ nguồn đến dash
 - Đã xác minh tài liệu về kênh market WebSocket và discovery; rate, lateness, delivery/reconnect thực tế chưa đo. WebSocket đăng ký bằng outcome asset ID, không phải Gamma market ID.
 - Đã chọn Lakehouse cho metadata và Eventhouse/KQL cho analytics. Cơ chế chạy batch, cách collector đọc metadata và chi tiết Fabric transport còn cần thiết kế/kiểm chứng.
 - Batch chỉ công bố version hoàn chỉnh sau khi phân trang/kiểm tra thành công; chính sách dùng snapshot cũ hoặc dừng khi batch thất bại chưa được người dùng chọn.
-- Mức tiêu thụ capacity của trial chưa đo; thời lượng phiên phụ thuộc kết quả đo.
+- Mức tiêu thụ capacity của trial chưa đo; cần đo để hướng dẫn chọn thời lượng an toàn. Người chạy chủ động truyền thời lượng từng phiên; giới hạn kỹ thuật và thời gian drain khi đóng phiên còn cần thiết kế.
 - Không có tuyên bố nào về hiệu quả với người dùng thật hay độ trễ cho tới khi có đo đạc.
 
 ## Evolution
@@ -98,4 +100,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-21 after user selected a 15–30 second collector-to-dashboard freshness target*
+*Last updated: 2026-10-21 after user selected a runtime duration parameter for each streaming session*

@@ -5,7 +5,7 @@
 
 ## Drivers and unresolved constraints
 
-Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription, starting at 07:00 Asia/Saigon (UTC+7; 00:00 UTC). The live target is 15–30 seconds from collector receipt to a visible dashboard update, using 30 seconds as the upper target. Its percentile/measurement coverage and outage treatment, batch completion deadline, session duration and capacity headroom are **Open**. The cloud schedule has not been deployed. No benchmark or generic wiki decision is treated as project approval.
+Fabric is required; trial-only budget, manual finite streaming sessions and a fresher-sized portfolio are established. Session duration is supplied at launch; collector stops receiving at expiry, then performs controlled shutdown with bounded drain/recovery behavior to be designed. The user selected Eventhouse/KQL history and requires daily metadata ingestion into Lakehouse before WebSocket subscription, starting at 07:00 Asia/Saigon (UTC+7; 00:00 UTC). The live target is 15–30 seconds from collector receipt to a visible dashboard update, using 30 seconds as the upper target. Its percentile/measurement coverage and outage treatment, batch completion deadline and capacity headroom are **Open**. The cloud schedule has not been deployed. No benchmark or generic wiki decision is treated as project approval.
 
 ## Candidate component flow
 

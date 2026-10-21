@@ -61,7 +61,7 @@ This is not an approved five-phase roadmap. Final phase count, vertical versus h
 
 ### Gaps to Address
 
-Agree the live-target measurement protocol, metadata completion/freshness/failure behavior, windows, session duration and shock rule. The user selected a 15–30 second collector-to-dashboard target, daily metadata start at 07:00 Asia/Saigon (00:00 UTC), Eventhouse/KQL history and a mandatory metadata Lakehouse. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
+Agree the live-target measurement protocol, metadata completion/freshness/failure behavior, windows and shock rule. Session duration is supplied by the operator at launch, with automatic stop receiving and controlled shutdown; no fixed duration was selected. The user also selected a 15–30 second collector-to-dashboard target, daily metadata start at 07:00 Asia/Saigon (00:00 UTC), Eventhouse/KQL history and a mandatory metadata Lakehouse. Then verify source behavior and target Fabric capabilities in a bounded authorized spike. Remaining trial time is user-reported; no expiry date or capacity size was inferred.
 
 ### Data engineering capability readiness
 

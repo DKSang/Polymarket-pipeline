@@ -9,7 +9,7 @@
 |---|---|---|---|
 | Metadata batch | AI-tag discovery into Lakehouse starting daily at 07:00 Asia/Saigon (00:00 UTC), raw snapshots and published complete versions | Medium | Pagination, scheduled bounded ingestion and metadata validation |
 | Market selection | AI-model eligibility from Lakehouse metadata; nested status validation; versioned market/outcome/asset mapping for WebSocket | Low–medium | Successful metadata batch and a live sample |
-| Capture | Finite manual sessions, raw journal, application heartbeat, bounded reconnect/retry | Medium | Valid watchlist; sink readiness |
+| Capture | User-supplied finite duration per manual session, automatic stop receiving at expiry, controlled shutdown, raw journal, heartbeat, bounded reconnect/retry | Medium | Valid watchlist; sink readiness; validated duration parameter |
 | Trust | Separate quotes/trade observations, invalid-record quarantine, capture IDs, coverage and gap indicators | Medium | Raw envelope and session manifest |
 | Top movers | Rank outcome-level midpoint changes in percentage points across selected windows | Medium | Valid fresh two-sided quotes and sufficient covered history |
 | Activity | Observed trade-message frequency, observed size/notional where available, and spread over time | Medium | Trade fields validated; do not label as complete market turnover |
@@ -46,7 +46,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 ## Decisions still needed
 
 1. Accept or adjust v1 capability groups and market-selection policy.
-2. Choose windows, shock rule and finite session duration. Live freshness is selected as 15–30 seconds from collector receive to visible dashboard update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
+2. Choose windows and shock rule. Session duration is supplied by the operator at launch, with a finite automatic stop; no fixed 30/90-minute duration was selected. Live freshness is 15–30 seconds from collector receive to visible dashboard update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
 3. Choose metadata completion/freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Daily start time is selected as 07:00 Asia/Saigon (00:00 UTC); Eventhouse/KQL history and Lakehouse metadata are already selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
