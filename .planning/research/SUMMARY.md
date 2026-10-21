@@ -73,7 +73,7 @@ Order/grouping will be adjusted after requirements and the GSD structure-mode ch
 
 ### Gaps to Address Before Freezing Requirements
 
-- Raw candidate scope versus the analytical 30-market watchlist.
+- Resolved after research: raw metadata covers all open markets in the AI-tag candidate set; selection of up to 30 watched AI markets belongs to downstream transformation. Verify the exact source tag mapping during implementation; design the selection method in transform planning.
 - Automatic AI-direct eligibility policy and ambiguous candidates.
 - Meaning of market stopped trading; transient source failures must not silently cause replacement.
 - Volume field, null/tie handling and daily cutoff/review semantics under manual operation.

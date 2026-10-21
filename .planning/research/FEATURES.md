@@ -21,9 +21,12 @@ This is a portfolio product with hypothetical researcher/analyst personas. No cu
 | Recover | Recompute derived results from already persisted raw after downstream failures | Needs reproducible input boundaries and replay verification |
 | Demonstrate | Show the complete data flow before longer measured collection | Short fixtures/sessions first; live duration and performance evidence later |
 
+### Confirmed After Research
+
+- Ingest raw metadata for all open markets in the AI-tag candidate set. Select up to 30 watched AI markets during downstream transformation; the raw ingest is not capped at 30. Exact selection implementation is deferred to transform planning.
+
 ### Candidate Additions Requiring Confirmation
 
-- Ingest all open AI-tag candidate metadata versus a smaller candidate scope; the analytical watchlist limit does not decide this.
 - Explain why each market is classified as a direct AI event and why it was selected/skipped; exact automation rule needs approval.
 - Define a single evaluation day/timezone and when daily review occurs when sessions start manually.
 - Separate connection health, price observation age, processing delay and display refresh in the UI; avoid a single ambiguous stale flag.

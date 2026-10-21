@@ -17,6 +17,7 @@ Help a researcher identify and explain price movements using traceable observati
 ### Active
 
 - [ ] Answer four analytical questions: which watched AI markets moved most; which outcome drove each movement and in which direction; how spread and quote-change activity evolved; and what observed history and data quality support the result.
+- [ ] Ingest raw metadata for all open markets in the AI-tag candidate set. Do not apply the analytical 30-market limit or direct-AI selection policy to this raw ingestion scope. Select the watchlist of up to 30 AI markets downstream during transformation; the exact selection implementation is deferred to that stage.
 - [ ] Maintain up to 30 watched markets initially, allowing later expansion. Include only direct AI events such as model/product releases, benchmarks and AI policy; tags/keywords identify candidates, not final eligibility.
 - [ ] Review the watchlist daily. Retain existing eligible markets and fill vacancies, including those created when a market closes or stops trading. Do not replace a market solely because its expected end date passed.
 - [ ] Automatically prioritize eligible replacement candidates by trading volume over the most recent 24 hours. The exact source field, tie-breaking and eligibility automation remain to be researched.
@@ -101,7 +102,7 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 ## Open Questions and Assumptions
 
 - Exact candidate eligibility/classification, 24-hour volume field and units, ties, missing volume handling, daily timezone/cutoff and watchlist versioning need explicit definitions. No silent replacement of these gaps with a custom business contract.
-- Ingest universe versus the 30-market analytical watchlist has not been reconfirmed. The old document's all-open-AI-tag raw ingest is not automatically inherited.
+- The user has now explicitly confirmed the raw scope: all open markets in the AI-tag candidate set; selection of up to 30 watched AI markets belongs downstream in transformation. Exact source tag identity and mapping remain to be verified before implementation.
 - How long to retain raw/derived evidence, and how to preserve deliverables before trial expiry, remain open within the existing-resource budget.
 - Complete quote-state reconstruction, timestamp behavior, duplicate/out-of-order handling and continuity evidence require source research and tests.
 - The old document's delayed threshold and the distinction between no quote changes and processing delay need precise acceptance wording; a quiet connected market must not become stale solely from no new quote.

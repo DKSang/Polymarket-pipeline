@@ -5,6 +5,10 @@
 **Confidence:** MEDIUM; no performance or runtime validation performed
 **Status:** Architecture candidates for review after requirements; not a deployment plan.
 
+This is the architecture research dimension of the GSD new-project workflow, not the project's approved solution architecture. The diagram expresses logical responsibilities and candidate dependencies. Component selection, deployment topology, schemas and data contracts, runtime/identity configuration, detailed recovery behavior, resource sizing and acceptance evidence still require design after requirements approval. Candidate build-order groups here do not approve implementation phases.
+
+**Confirmed scope clarification:** Raw metadata ingestion covers all open markets in the AI-tag candidate set. Watchlist selection of up to 30 AI markets is a downstream transformation responsibility; this document does not prescribe its implementation.
+
 ## Standard Architecture
 
 The reusable mental model is a boundary between observed source data, reconstructed analytical state and consumer-facing results. Raw retention enables investigation; it does not by itself prove replay, completeness or recovery.
