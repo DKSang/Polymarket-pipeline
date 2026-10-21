@@ -116,7 +116,7 @@ The Hub's `codebase/README.md` and `codebase/upstream.md` were consulted. Their 
 
 ### Research Progress
 
-Workflow preferences are saved in `.planning/config.json`: interactive, standard granularity, sequential, Git tracking, model inherit, research/plan check/verifier enabled, full instruction content, and all four optional PR sections enabled. Initial research is recorded in `.planning/research/SUMMARY.md` with the source registry and read-only Fabric MCP evidence. Requirements scoping and roadmap approval remain pending; no final stack has been selected.
+Workflow preferences are saved in `.planning/config.json`: interactive, standard granularity, sequential, Git tracking, model inherit, research/plan check/verifier enabled, full instruction content, and all four optional PR sections enabled. Initial research is recorded in `.planning/research/SUMMARY.md` with the source registry and read-only Fabric MCP evidence. The user approved all 36 v1 requirements in `.planning/REQUIREMENTS.md` on 2026-10-21. Project structure mode and roadmap approval remain pending; no final stack has been selected and no implementation requirement has been marked validated.
 
 The user-authorized Wiki ingestion created seven source-scoped articles from twelve official snapshots. This updates the earlier Query-only boundary for that explicit operation; current external behavior still needs rechecking when selected as an implementation dependency.
 
