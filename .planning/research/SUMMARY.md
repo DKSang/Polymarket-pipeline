@@ -69,6 +69,8 @@ On 2026-10-21, local GSD `capability list --json` and `capability state` report 
 
 ## Sources
 
+User update after research: if the daily metadata batch fails, use the last successful version with a visible update-time warning and revalidate selected markets before WebSocket subscription. This resolves the fallback-policy question; no maximum fallback age is assumed. Initialization is now at consolidated v1 requirements review, before roadmap creation.
+
 Local knowledge consulted first: the parent wiki index, maintenance conventions, Message and Stream Ingestion, Types of Time, Replay, Stream-to-Batch Storage Architecture, Micro-Batch Versus True Streaming and Data-Quality Testing. Those pages establish general principles, not project-approved technology choices. External checks addressed current API/schema and Fabric-specific behavior that the inspected wiki did not establish. The wiki was not modified.
 
 ## Nguồn tham khảo

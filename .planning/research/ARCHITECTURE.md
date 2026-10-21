@@ -75,7 +75,7 @@ Raw, cleaned and serving are data guarantees, not a requirement to deploy three 
 3. Publish a completed version only after the run passes validation; a failed/partial scan must not replace the last complete version or imply missing markets were deleted.
 4. Collector loads one published version at session start and records its version. The exact Lakehouse read/export mechanism is Open; do not assume local Python can read a Spark-managed table without authentication/network setup.
 5. Translate selected markets into outcome asset IDs for native `assets_ids` subscription; retain market IDs for joins and traceability. [P-STREAM]
-6. Define metadata freshness and failed-batch behavior before implementation. Daily refresh alone does not establish a 24-hour freshness guarantee when runs fail.
+6. User-approved failed-batch policy: use the last successfully published metadata version, clearly show its update time, and revalidate selected markets before subscribing. No maximum fallback age has been agreed. Daily refresh does not guarantee 24-hour freshness when runs fail. Missing snapshots and unsuccessful revalidation require explicit error handling during phase design, not silently assumed validity.
 7. Propose freezing the watchlist during a finite session; hot reload and session-start status rechecks need explicit scoping. Preserve metadata versions used for historical labels; do not enrich all past observations with today's metadata silently.
 
 **Alternatives for orchestration:** A scheduled Fabric pipeline invoking a bounded ingestion notebook versus a directly scheduled notebook. Both can satisfy the required cadence; runtime, permissions, retry/monitoring and cost must be checked before choosing.

@@ -47,7 +47,7 @@ Automated trading, investment recommendations, 24/7 operations, all-topic discov
 
 1. Accept or adjust v1 capability groups and market-selection policy.
 2. Windows (5/15/60 minutes) and the configurable shock rule (absolute midpoint change >=5 percentage points in 5 minutes) are approved. Session duration is supplied at launch, with a finite automatic stop. Live freshness is 15–30 seconds from collector receive to visible update; 30 seconds is the upper target. Measurement coverage/percentile and outage/recovery treatment remain open.
-3. Choose metadata completion/freshness/failed-run policy, collector access mechanism and whether watchlists can change mid-session. Daily start time is selected as 07:00 Asia/Saigon (00:00 UTC); Eventhouse/KQL history and Lakehouse metadata are already selected.
+3. Failed-batch policy is approved: use last successful metadata, warn with its update time, and revalidate markets before subscription. Batch completion/freshness details, collector access and mid-session changes remain phase-design questions. Daily start is 07:00 Asia/Saigon (00:00 UTC); KQL history and metadata Lakehouse are selected.
 4. Confirm how unavailable/partial metrics should appear; propose unknown/warming-up/gap rather than synthetic zero.
 
 ## Nguồn tham khảo
