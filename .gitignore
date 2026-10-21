@@ -2,3 +2,5 @@ docs/research
 .env
 *.local.json
 data/research/
+.agents/
+.codex/
